@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { NavbarLandingComponent } from '../navbar-landing/navbar-landing.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [],
+  imports: [NavbarLandingComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })
