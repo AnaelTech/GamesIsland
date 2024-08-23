@@ -12,8 +12,9 @@
             </p>
 
             <div class="mt-4 md:mt-8">
-                <button class="bg-orange-500 text-white hover:bg-orange-700 font-bold py-2 px-4 rounded-full mx-4">
-                    <a href="#">Create Account</a>
+                <button [routerLink]="['/inscription']"
+                    class="bg-orange-500 text-white hover:bg-orange-700 font-bold py-2 px-4 rounded-full mx-4">
+                    <a>Create Account</a>
                 </button>
             </div>
         </div>
@@ -104,3 +105,9 @@
         </div>
     </div>
 </section>
+<div class="my-4 md:mt-8 flex items-center justify-center">
+    <button [routerLink]="['/inscription']"
+        class="bg-orange-500 text-white hover:bg-orange-700 font-bold py-2 px-4 rounded-full mx-4">
+        <a>Let's Play</a>
+    </button>
+</div>
