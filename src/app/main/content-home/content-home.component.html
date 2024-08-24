@@ -1,0 +1,87 @@
+<!-- main.component.html -->
+<div class="flex-1 p-4 lg:p-8 bg-gray-100 min-h-screen pt-20">
+    <!-- Barre de recherche et informations utilisateur -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 space-y-4 lg:space-y-0 ">
+        <div class="relative w-full lg:w-1/2">
+            <input type="text" placeholder="Search"
+                class="w-full px-4 py-2 rounded-full bg-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div class="flex items-center space-x-4 mt-4 lg:mt-0">
+            <img src="user-avatar.png" alt="User Avatar" class="w-10 h-10 rounded-full">
+            <div>
+                <p class="text-gray-800">QuantumSpectre55</p>
+                <p class="text-sm text-gray-500">quantum&#64;email.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jeu en vedette -->
+    <div class="bg-white rounded-lg p-6 mb-8 shadow-lg">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Hogwarts Legacy</h2>
+                <p class="text-gray-500">An immersive, open-world action RPG set in the world first introduced in the
+                    Harry Potter</p>
+            </div>
+            <div class="flex items-center space-x-2 mt-4 lg:mt-0">
+                <button class="bg-red-600 px-4 py-2 rounded-full text-white hover:bg-red-700">$24.00 <span
+                        class="line-through">$35.99</span></button>
+                <button class="bg-gray-100 p-2 rounded-full hover:bg-gray-200">
+                    <span class="material-icons text-gray-800">favorite_border</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jeux actuels -->
+    <h3 class="text-xl font-bold mb-4 text-gray-800">Actual games</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded-lg shadow">
+            <img src="spiderman.png" alt="Spiderman" class="rounded-lg mb-4 w-full">
+            <p class="text-gray-800">$69.00</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow">
+            <img src="mortal_kombat.png" alt="Mortal Kombat" class="rounded-lg mb-4 w-full">
+            <p class="text-gray-800">$67.99</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow">
+            <img src="fortnite.png" alt="Fortnite" class="rounded-lg mb-4 w-full">
+            <p class="text-gray-800">Free</p>
+        </div>
+    </div>
+
+    <!-- Amis en ligne et récemment joués -->
+    <div class="flex flex-col lg:flex-row mt-8 space-y-8 lg:space-y-0 lg:space-x-8">
+        <!-- <div class="w-full lg:w-1/3">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Friends online</h3>
+            <ul class="space-y-4">
+                <li class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <img src="friend1.png" alt="Friend" class="w-10 h-10 rounded-full">
+                        <div class="ml-2">
+                            <p class="text-gray-800">CrimsonTiger67</p>
+                            <p class="text-sm text-gray-500">Join <span class="text-green-500">Resident Evil 4</span>
+                            </p>
+                        </div>
+                    </div>
+                    <button class="text-teal-600 hover:text-teal-700">Join</button>
+                </li>
+            </ul>
+        </div> -->
+        <!-- <div class="w-full lg:w-2/3">
+            <h3 class="text-xl font-bold mb-4 text-gray-800">Recently played</h3>
+            <ul class="space-y-4">
+                <li class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-800">Hitman World of Assassination</p>
+                        <div class="bg-gray-200 h-2 rounded-full mt-1">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 72%;"></div>
+                        </div>
+                    </div>
+                    <span class="text-gray-800">72%</span>
+                </li>
+                
+            </ul>
+        </div> -->
+    </div>
+</div>
