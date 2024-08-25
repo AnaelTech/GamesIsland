@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
-import { NavbarComponent } from './navbar/navbar.component';
-import { NavbarLandingComponent } from './landing/navbar-landing/navbar-landing.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +13,22 @@ import { NavbarLandingComponent } from './landing/navbar-landing/navbar-landing.
 export class AppComponent implements OnInit {
   title = 'GamesIsland';
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     initFlowbite();
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        setTimeout(() => initFlowbite(), 0);
+      });
+  }
+
+  ngAfterViewInit() {
+    throw new Error('Function not implemented.');
   }
 
 }
+
+
+
