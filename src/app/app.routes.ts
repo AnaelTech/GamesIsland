@@ -5,6 +5,8 @@ import { FormConnexionComponent } from './form-connexion/form-connexion.componen
 import { HomeComponent } from './main/home/home.component';
 import { ContentHomeComponent } from './main/content-home/content-home.component';
 import { FormInscriptionDevComponent } from './dev/form-inscription-dev/form-inscription-dev.component';
+import { DashboardComponent } from './dev/dashboard/dashboard.component';
+import { HomeDevComponent } from './dev/home/home-dev.component';
 
 
 export const routes: Routes = [
@@ -31,6 +33,16 @@ export const routes: Routes = [
             {
                 path: '',
                 component: ContentHomeComponent
+            }
+        ]
+    },
+    {
+        path: 'dashboard-dev',
+        component: DashboardComponent,
+        children: [
+            {
+                path: '',
+                component: HomeDevComponent
             }
         ]
     }

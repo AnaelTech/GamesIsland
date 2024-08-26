@@ -58,9 +58,8 @@
                 <p class="text-sm text-center mx-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
                 </p>
-                <button [routerLink]="['inscription']"
-                    class="bg-sky-500 text-white hover:bg-sky-700 font-semibold py-2 px-3 rounded-full mt-4">
-                    <a>Explore Games</a>
+                <button class="bg-sky-500 text-white hover:bg-sky-700 font-semibold py-2 px-3 rounded-full mt-4">
+                    <a href="#games">Explore Games</a>
                 </button>
             </div>
 
@@ -78,8 +77,9 @@
                 <p class="text-sm text-center mx-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
                 </p>
-                <button class="bg-blue-800 text-white hover:bg-blue-900 font-semibold py-2 px-3 rounded-full mt-4">
-                    <a href="#">Join us</a>
+                <button [routerLink]="['dev-inscription']"
+                    class="bg-blue-800 text-white hover:bg-blue-900 font-semibold py-2 px-3 rounded-full mt-4">
+                    <a>Join us</a>
                 </button>
             </div>
 
@@ -98,8 +98,9 @@
                 <p class="text-sm text-center mx-2">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
                 </p>
-                <button class="bg-sky-500 text-white hover:bg-sky-700 font-semibold py-2 px-3 rounded-full mt-4">
-                    <a href="#">Explore Talents</a>
+                <button [routerLink]="['inscription']"
+                    class="bg-sky-500 text-white hover:bg-sky-700 font-semibold py-2 px-3 rounded-full mt-4">
+                    <a>Explore Talents</a>
                 </button>
             </div>
         </div>
