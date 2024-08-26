@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -28,13 +28,13 @@ export class AuthService {
     );
   }
 
-  getRoles() {
+  getRoles(): Observable<string[]> {
     const token = this.token();
     if (token) {
       const tokenPayload: any = jwtDecode(token);
-      const roles = tokenPayload.roles;
-      return roles;
+      return of(tokenPayload.roles || []);
     }
+    return of([]);
   }
 
   token() {

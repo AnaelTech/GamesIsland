@@ -9,7 +9,7 @@ import { UserService } from '../shared/user.service';
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './form-connexion.component.html',
-  styleUrl: './form-connexion.component.css'
+  styleUrls: ['./form-connexion.component.css'] // Notez l'utilisation de `styleUrls` au lieu de `styleUrl`
 })
 export class FormConnexionComponent implements OnInit {
   private auth: AuthService = inject(AuthService);
@@ -27,47 +27,46 @@ export class FormConnexionComponent implements OnInit {
 
   Login() {
     if (this.formLogin.valid) {
-        this.auth.login(this.formLogin.value).subscribe({
-            next: (response) => {
-                if (this.auth.isLoggedIn()) {
-                    const roles = this.auth.getRoles();
-                    console.log(roles);
-
-                    if (roles && roles.includes("ROLE_DEVELOPER")) {
-                        // Priorité au rôle de Developer
-                        this.router.navigate(['/dashboard-dev']);
-                    } else if (roles && roles.includes("ROLE_USER")) {
-                        // Redirection si l'utilisateur est un simple User
-                        this.router.navigate(['/home']);
-                    } else {
-                        console.log('Rôle non reconnu');
-                        this.errorMessage = 'Rôle non reconnu';
-                        this.router.navigate(['/connexion']);
-                    }
+      this.auth.login(this.formLogin.value).subscribe({
+        next: () => {
+          if (this.auth.isLoggedIn()) {
+            // Abonnez-vous à getRoles() pour obtenir les rôles de l'utilisateur
+            this.auth.getRoles().subscribe({
+              next: (roles: string[]) => {
+                if (roles.includes('ROLE_DEVELOPER')) {
+                  this.router.navigate(['/dashboard-dev']);
+                } else if (roles.includes('ROLE_USER')) {
+                  this.router.navigate(['/home']);
                 } else {
-                    console.log('Erreur de connexion');
-                    this.errorMessage = 'Email ou mot de passe incorrect';
-                    this.router.navigate(['/connexion']);
+                  this.router.navigate(['/connexion']);
                 }
-            },
-            error: (error) => {
-                console.log('Erreur de connexion', error);
-                this.errorMessage = 'L\'email ou le mot de passe est incorrect';
+              },
+              error: (error) => {
                 this.router.navigate(['/connexion']);
-                this.formLogin.reset();
-            },
-            complete: () => {
-                this.formLogin.reset();
-            },
-        });
+              }
+            });
+          } else {
+            //console.log('Erreur de connexion');
+            this.errorMessage = 'Email ou mot de passe incorrect';
+            this.router.navigate(['/connexion']);
+          }
+        },
+        error: (error) => {
+          //console.log('Erreur de connexion', error);
+          this.errorMessage = 'L\'email ou le mot de passe est incorrect';
+          this.router.navigate(['/connexion']);
+          this.formLogin.reset();
+        },
+        complete: () => {
+          this.formLogin.reset();
+        }
+      });
     } else {
-        this.errorMessage = 'Veuillez remplir correctement le formulaire';
-        console.log('Formulaire invalide');
-        this.markAllControlsAsTouched();
+      this.errorMessage = 'Veuillez remplir correctement le formulaire';
+      console.log('Formulaire invalide');
+      this.markAllControlsAsTouched();
     }
-}
-
-
+  }
 
   // Méthode pour vérifier si le champ a une erreur spécifique
   hasError(controlName: string, errorName: string): boolean {

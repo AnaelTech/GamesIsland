@@ -7,6 +7,9 @@ import { ContentHomeComponent } from './main/content-home/content-home.component
 import { FormInscriptionDevComponent } from './dev/form-inscription-dev/form-inscription-dev.component';
 import { DashboardComponent } from './dev/dashboard/dashboard.component';
 import { HomeDevComponent } from './dev/home/home-dev.component';
+import { NotFoundComponent } from './404/not-found.component';
+import { devGuard } from './shared/dev.guard';
+import { userGuard } from './shared/user.guard';
 
 
 export const routes: Routes = [
@@ -29,21 +32,29 @@ export const routes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
+        canActivate: [userGuard],
         children: [
             {
                 path: '',
-                component: ContentHomeComponent
+                component: ContentHomeComponent,
+                canActivate: [userGuard]
             }
         ]
     },
     {
         path: 'dashboard-dev',
         component: DashboardComponent,
+        canActivate: [devGuard],
         children: [
             {
                 path: '',
-                component: HomeDevComponent
+                component: HomeDevComponent,
+                canActivate: [devGuard]
             }
         ]
+    },
+    {
+        path: '**',
+        component: NotFoundComponent
     }
 ];
