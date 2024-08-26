@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,22 @@ export class AuthService {
         if (data.token) {
           this.saveToken(data.token);
         }
+      }),
+      catchError((error) => {
+        console.error('Erreur lors de la connexion', error);
+        // Ne pas sauvegarder le token si une erreur survient
+        return throwError(() => new Error('Erreur lors de la connexion'));
       })
     );
+  }
+
+  getRoles() {
+    const token = this.token();
+    if (token) {
+      const tokenPayload: any = jwtDecode(token);
+      const roles = tokenPayload.roles;
+      return roles;
+    }
   }
 
   token() {

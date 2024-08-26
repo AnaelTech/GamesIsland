@@ -2,8 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { DeveloperService } from '../../shared/developer.service';
-import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-inscription-dev',
@@ -22,7 +20,8 @@ export class FormInscriptionDevComponent implements OnInit {
     website: new FormControl('', [Validators.required, Validators.pattern('https?://.+')]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    passwordConfirmation: new FormControl('', [Validators.required])
+    passwordConfirmation: new FormControl('', [Validators.required]),
+    roles: new FormControl(['ROLE_DEVELOPER'])
   }, { validators: this.passwordsMatchValidator() });
   
   public errorMessage: string = '';
