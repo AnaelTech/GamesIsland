@@ -12,3 +12,7 @@ export interface ApiListResponse<T> {
     'hydra:totalItems': number;
     'hydra:member': T[];
   }
+
+export interface Developer {
+    
+}
