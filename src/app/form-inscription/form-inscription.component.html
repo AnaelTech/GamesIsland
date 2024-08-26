@@ -36,11 +36,12 @@
                         </label>
 
                         <input formControlName="username" type="text" id="Username" name="username"
+                            aria-describedby="usernameError"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
 
                         @if(hasError('username', 'required')) {
-                        <div class="text-xs text-red-500 flex items-center mt-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
+                        <div class="text-xs text-red-500 flex items-center mt-2" id="usernameError" class="error">
+                            <svg xmlns=" http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
                                 class="mr-2" viewBox="0 0 512 512">
                                 <path
                                     d="M256 0C114.833 0 0 114.833 0 256s114.833 256 256 256 256-114.853 256-256S397.167 0 256 0zm0 472.341c-119.275 0-216.341-97.046-216.341-216.341S136.725 39.659 256 39.659c119.295 0 216.341 97.046 216.341 216.341S375.275 472.341 256 472.341z"
@@ -58,10 +59,11 @@
                         <label for="Email" class="block text-sm font-medium text-gray-700"> Email </label>
 
                         <input formControlName="email" type="email" id="Email" name="email"
+                            aria-describedby="emailError"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
 
                         @if (hasError('email', 'required')) {
-                        <div class="text-xs text-red-500 flex items-center mt-2">
+                        <div class="text-xs text-red-500 flex items-center mt-2" id="emailError" class="error">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
                                 class="mr-2" viewBox="0 0 512 512">
                                 <path
@@ -93,9 +95,10 @@
                         <label for="Password" class="block text-sm font-medium text-gray-700"> Password </label>
 
                         <input formControlName="password" type="password" id="Password" name="password"
+                            aria-describedby="passwordError"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                         @if (hasError('password', 'required')) {
-                        <div class="text-xs text-red-500 flex items-center mt-2">
+                        <div class="text-xs text-red-500 flex items-center mt-2" id="passwordError" class="error">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
                                 class="mr-2" viewBox="0 0 512 512">
                                 <path
@@ -116,11 +119,12 @@
                         </label>
 
                         <input formControlName="passwordConfirmation" type="password" id="PasswordConfirmation"
-                            name="password_confirmation"
+                            name="password_confirmation" aria-describedby="passwordConfirmationError"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm" />
                         @if (formInscription.hasError('passwordMismatch') &&
                         formInscription.get('passwordConfirmation')?.touched){
-                        <div class="text-xs text-red-500 flex items-center mt-2">
+                        <div class="text-xs text-red-500 flex items-center mt-2" id="passwordConfirmationError"
+                            class="error">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
                                 class="mr-2" viewBox="0 0 512 512">
                                 <path

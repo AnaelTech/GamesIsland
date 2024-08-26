@@ -37,12 +37,13 @@
                     <div class="col-span-6">
                         <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
                         <input formControlName="email" type="email" id="Email" name="email"
+                            aria-describedby="emailError"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                             required />
 
                         <!-- Message d'erreur pour l'email -->
                         @if (hasError('email', 'required')) {
-                        <div class="text-xs text-red-500 flex items-center mt-2">
+                        <div class="text-xs text-red-500 flex items-center mt-2" id="emailError" class="error">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
                                 class="mr-2" viewBox="0 0 512 512">
                                 <path
@@ -55,7 +56,7 @@
                             Email is required
                         </div>
                         } @else if (hasError('email', 'email')) {
-                        <div class="text-xs text-red-500 flex items-center mt-2">
+                        <div class="text-xs text-red-500 flex items-center mt-2" id="emailError" class="error">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
                                 class="mr-2" viewBox="0 0 512 512">
                                 <path
@@ -73,12 +74,13 @@
                     <div class="col-span-6">
                         <label for="Password" class="block text-sm font-medium text-gray-700">Password</label>
                         <input formControlName="password" type="password" id="Password" name="password"
+                            aria-describedby="passwordError"
                             class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                             required />
 
                         <!-- Message d'erreur pour le mot de passe -->
                         @if (hasError('password', 'required')) {
-                        <div class="text-xs text-red-500 flex items-center mt-2">
+                        <div class="text-xs text-red-500 flex items-center mt-2" id="passwordError" class="error">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" fill="currentColor"
                                 class="mr-2" viewBox="0 0 512 512">
                                 <path
