@@ -29,4 +29,8 @@ export class UserService {
     }
   }
 
+  addUser(user:any) {
+    return this.http.post(this.url + 'users', user);
+  }
+
 }

@@ -23,11 +23,6 @@ export class AppComponent implements OnInit {
         setTimeout(() => initFlowbite(), 0);
       });
   }
-
-  ngAfterViewInit() {
-    throw new Error('Function not implemented.');
-  }
-
 }
 
 

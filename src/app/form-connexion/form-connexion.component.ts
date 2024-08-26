@@ -36,23 +36,32 @@ export class FormConnexionComponent implements OnInit {
             this.errorMessage = 'Email ou mot de passe incorrect';
             this.router.navigate(['/connexion']);
           }
-          this.formLogin.reset();
         },
         error: (error) => {
           console.log('Erreur de connexion', error);
-          this.errorMessage = 'Erreur lors de la tentative de connexion';
+          this.errorMessage = 'L \'email ou le mot de passe est incorrect';
           this.router.navigate(['/connexion']);
+          this.formLogin.reset();
+        },
+        complete: () => {
           this.formLogin.reset();
         },
       });
     } else {
       this.errorMessage = 'Veuillez remplir correctement le formulaire';
       console.log('Formulaire invalide');
+      this.markAllControlsAsTouched();
     }
   }
 
   // Méthode pour vérifier si le champ a une erreur spécifique
   hasError(controlName: string, errorName: string): boolean {
     return this.formLogin.controls[controlName].hasError(errorName) && this.formLogin.controls[controlName].touched;
+  }
+
+  private markAllControlsAsTouched(): void {
+    Object.keys(this.formLogin.controls).forEach(controlName => {
+      this.formLogin.controls[controlName].markAsTouched();
+    });
   }
 }
