@@ -8,14 +8,14 @@
     </svg>
 </button>
 <aside #sidebar
-    class="fixed lg:static top-0 left-0 transform lg:transform-none w-64 bg-teal-900 from-pink-700 via-purple-700 to-indigo-700 p-6 space-y-8 h-screen transition-transform duration-300 ease-in-out z-10 pt-20 lg:pt-8"
+    class="fixed lg:static top-0 left-0 transform lg:transform-none w-64 bg-teal-900 from-pink-700 via-purple-700 to-indigo-700 p-6 space-y-8 h-full transition-transform duration-300 ease-in-out z-10 pt-20 lg:pt-8"
     [class.-translate-x-full]="!isSidebarOpen" [class.translate-x-0]="isSidebarOpen">
     <div class="text-white text-xl font-bold flex items-center space-x-3 rtl:space-x-reverse">
         <img src="/assets/GamesIsland-Logo.webp" alt="GamesIsland Logo" class="h-8 rounded-full">
         <span class="self-center text-lg font-semibold whitespace-nowrap dark:text-white">GAMESISLAND</span>
     </div>
     <nav class="space-y-4">
-        <a href="#" class="flex items-center text-white hover:text-red-600">
+        <a [routerLink]="['/home']" class="flex items-center text-white hover:text-red-600">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -23,7 +23,7 @@
             </svg>
             <span class="ml-2">Home</span>
         </a>
-        <a href="#" class="flex items-center text-white hover:text-red-600">
+        <a [routerLink]="['categories']" class="flex items-center text-white hover:text-red-600">
             <svg class="size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                 stroke="currentColor">
                 <path d="M17 10H19C21 10 22 9 22 7V5C22 3 21 2 19 2H17C15 2 14 3 14 5V7C14 9 15 10 17 10Z"
@@ -39,7 +39,7 @@
             </svg>
             <span class="ml-2">Category</span>
         </a>
-        <a href="#" class="flex items-center text-white hover:text-red-600">
+        <a class="flex items-center text-white hover:text-red-600">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round"

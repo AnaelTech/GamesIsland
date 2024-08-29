@@ -10,6 +10,8 @@ import { HomeDevComponent } from './dev/home/home-dev.component';
 import { NotFoundComponent } from './404/not-found.component';
 import { devGuard } from './shared/dev.guard';
 import { userGuard } from './shared/user.guard';
+import { CategoryGamesComponent } from './main/category-games/category-games.component';
+import { DetailGameComponent } from './main/detail-game/detail-game.component';
 
 
 export const routes: Routes = [
@@ -38,7 +40,17 @@ export const routes: Routes = [
                 path: '',
                 component: ContentHomeComponent,
                 canActivate: [userGuard]
-            }
+            },
+            {
+                path: 'categories',
+                component: CategoryGamesComponent,
+                canActivate: [userGuard]
+            },
+            {
+                path: 'games/:id',
+                component: DetailGameComponent,
+                canActivate: [userGuard]
+            },
         ]
     },
     {
