@@ -1,5 +1,5 @@
 # GamesIsland
-![GamesIsland Logo](/assets/GamesIsland-Logo.png)
+![GamesIsland Logo](assets/GamesIsland-Logo.webp)
 
 This project will be a video game library site for video game developers from Reunion Island 🇷🇪
 
