@@ -14,5 +14,27 @@ export interface ApiListResponse<T> {
   }
 
 export interface Developer {
-    
+  id?: number; 
+  studioName: string;
+  website?: string; 
+  description?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  games?: Game[];
 }
+
+export interface Game {
+  id?: number; 
+  title: string;
+  description: string;
+  price: string; 
+  releaseDate: Date;
+  genre: string;
+  platform: string;
+  coverImage: string;
+  trailerUrl?: string; 
+  createdAt: Date;
+  updateAt: Date; 
+  developer?: Developer;
+}
+

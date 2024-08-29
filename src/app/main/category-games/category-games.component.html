@@ -46,42 +46,52 @@
     </div>
 
     <!-- Jeux actuels -->
-    <h3 class="text-xl font-bold mb-4 text-gray-800">Popular Games</h3>
+    @for(genre of gamesByGenre | keyvalue ; track genre.key) {
+    <h3 class="text-xl font-bold mb-4 text-gray-800 mt-4">{{ genre.key }}</h3>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div (click)="goToDetail('1')" id="1"
+        @for (game of genre.value; track game.id) {
+        <div (click)="goToDetail(game.id)"
             class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
-            <img src="spiderman.png" alt="Spiderman" class="rounded-lg mb-4 w-full">
-            <p class="text-gray-800">$69.00</p>
-        </div>
-        <div (click)="goToDetail('2')" id="2"
-            class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
-            <img src="mortal_kombat.png" alt="Mortal Kombat" class="rounded-lg mb-4 w-full">
-            <p class="text-gray-800">$67.99</p>
-        </div>
-        <div (click)="goToDetail('3')" id="3"
-            class="bg-white p-4 rounded-lg shadow  cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
-            <img src="fortnite.png" alt="Fortnite" class="rounded-lg mb-4 w-full">
+            <img [src]="game.coverImage" alt="{{game.title}}" class="rounded-lg mb-4 w-full">
+            <p class="text-gray-800">{{game.title}}</p>
+            @if(game.price === '0' ){
             <p class="text-gray-800">Free</p>
+            } @else {
+            <p class="text-gray-800">{{ game.price}} €</p>
+            }
         </div>
+        }
     </div>
-    <h3 class="text-xl font-bold mb-4 text-gray-800 mt-8">Action Games</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div
-            class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
-            <img src="spiderman.png" alt="Spiderman" class="rounded-lg mb-4 w-full">
-            <p class="text-gray-800">$69.00</p>
-        </div>
-        <div
-            class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
-            <img src="mortal_kombat.png" alt="Mortal Kombat" class="rounded-lg mb-4 w-full">
-            <p class="text-gray-800">$67.99</p>
-        </div>
-        <div
-            class="bg-white p-4 rounded-lg shadow  cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
-            <img src="fortnite.png" alt="Fortnite" class="rounded-lg mb-4 w-full">
-            <p class="text-gray-800">Free</p>
-        </div>
+    }
+    <!-- <div (click)="goToDetail('2')" id="2"
+        class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
+        <img src="mortal_kombat.png" alt="Mortal Kombat" class="rounded-lg mb-4 w-full">
+        <p class="text-gray-800">$67.99</p>
     </div>
+    <div (click)="goToDetail('3')" id="3"
+        class="bg-white p-4 rounded-lg shadow  cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
+        <img src="fortnite.png" alt="Fortnite" class="rounded-lg mb-4 w-full">
+        <p class="text-gray-800">Free</p>
+    </div>
+</div>
+<h3 class="text-xl font-bold mb-4 text-gray-800 mt-8">Action Games</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div
+        class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
+        <img src="spiderman.png" alt="Spiderman" class="rounded-lg mb-4 w-full">
+        <p class="text-gray-800">$69.00</p>
+    </div>
+    <div
+        class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
+        <img src="mortal_kombat.png" alt="Mortal Kombat" class="rounded-lg mb-4 w-full">
+        <p class="text-gray-800">$67.99</p>
+    </div>
+    <div
+        class="bg-white p-4 rounded-lg shadow  cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
+        <img src="fortnite.png" alt="Fortnite" class="rounded-lg mb-4 w-full">
+        <p class="text-gray-800">Free</p>
+    </div>
+</div> -->
 
 
     <!-- Amis en ligne et récemment joués -->

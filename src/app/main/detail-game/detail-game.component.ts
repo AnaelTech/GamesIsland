@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from '../../entity';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Game, User } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
 import { UserService } from '../../shared/user.service';
+import { GameService } from '../../shared/game.service';
 
 @Component({
   selector: 'app-detail-game',
@@ -16,9 +17,15 @@ export class DetailGameComponent implements OnInit {
 
   private userService: UserService = inject(UserService);
 
+  private gameService: GameService = inject(GameService);
+
   public user: User | undefined;
 
+  public game: Game | undefined;
+
   private router: Router = inject(Router);
+
+  private route: ActivatedRoute = inject(ActivatedRoute);
 
   constructor() { 
     
@@ -27,13 +34,23 @@ export class DetailGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
+    this.getIdurl();
   }
 
   getUser() {
     this.userService.getUser().subscribe((data: User) => {
       this.user = data;
-      console.log(this.user);
+      // console.log(this.user);
     });
+  } 
+
+  getIdurl(){
+    const id = this.route.snapshot.paramMap.get('id') ?? '';
+    this.gameService.getGame(id).subscribe((data: Game) => {
+      this.game = data;
+      console.log(this.game);
+    });
+
   }
 
   logout() {

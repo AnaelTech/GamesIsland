@@ -1,5 +1,5 @@
 <!-- main.component.html -->
-<div class="flex-1 p-4 lg:p-8 bg-gray-100 min-h-screen pt-20">
+<div class="flex-1 p-4 lg:p-8 bg-gray-100 overflow-y-auto h-full pt-20">
     <!-- Barre de recherche et informations utilisateur -->
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 space-y-4 lg:space-y-0 ">
         <div class="relative w-full lg:w-1/2">
@@ -66,21 +66,23 @@
     </div>
 
     <!-- Jeux actuels -->
+
     <h3 class="text-xl font-bold mb-4 text-gray-800">Actual games</h3>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for(game of games; track game.id) {
         <div class="bg-white p-4 rounded-lg shadow">
-            <img src="spiderman.png" alt="Spiderman" class="rounded-lg mb-4 w-full">
-            <p class="text-gray-800">$69.00</p>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <img src="mortal_kombat.png" alt="Mortal Kombat" class="rounded-lg mb-4 w-full">
-            <p class="text-gray-800">$67.99</p>
-        </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <img src="fortnite.png" alt="Fortnite" class="rounded-lg mb-4 w-full">
+            <img [src]="game.coverImage" alt="{{game.title}}" class="rounded-lg mb-4 w-full">
+            <h4>{{ game.title }}</h4>
+            @if(game.price === '0' ){
             <p class="text-gray-800">Free</p>
+            } @else {
+            <p class="text-gray-800">{{ game.price}} €</p>
+            }
         </div>
+        }
     </div>
+
 
     <!-- Amis en ligne et récemment joués -->
     <div class="flex flex-col lg:flex-row mt-8 space-y-8 lg:space-y-0 lg:space-x-8">

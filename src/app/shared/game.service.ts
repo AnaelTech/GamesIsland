@@ -1,24 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
-import { Developer } from '../entity';
+import { ApiListResponse, Game } from '../entity';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DeveloperService {
-  private auth = inject(AuthService);
+export class GameService {
   private url = environment.apiUrl;
   private http: HttpClient = inject(HttpClient);
+
   constructor() { }
 
-  addDeveloper(developer:any) {
-    return this.http.post(this.url + 'developers', developer);
+  getGames():Observable<ApiListResponse<Game>> {
+    return this.http.get<ApiListResponse<Game>>(this.url + 'games');
   }
 
-  getDevelopers():Observable<Developer[]> {
-    return this.http.get<Developer[]>(this.url + 'developers');
+  getGame(id: string): Observable<Game> {
+    return this.http.get<Game>(this.url + 'games/' + id);
   }
+
 }
