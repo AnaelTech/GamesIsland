@@ -71,7 +71,8 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         @for(game of games; track game.id) {
-        <div class="bg-white p-4 rounded-lg shadow">
+        <div (click)="goToDetail(game.id)"
+            class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
             <img [src]="game.coverImage" alt="{{game.title}}" class="rounded-lg mb-4 w-full">
             <h4>{{ game.title }}</h4>
             @if(game.price === '0' ){

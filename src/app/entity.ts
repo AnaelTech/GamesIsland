@@ -1,10 +1,12 @@
 export interface User {
+    ['@id']: string;
     id: number;
     username: string;
     email: string;
     password: string;
     avatar: string;
     roles: string;
+    wishLists: Wishlist[];
 }
 
 export interface ApiListResponse<T> {
@@ -24,6 +26,7 @@ export interface Developer {
 }
 
 export interface Game {
+  ['@id']: string;
   id?: number; 
   title: string;
   description: string;
@@ -36,5 +39,13 @@ export interface Game {
   createdAt: Date;
   updateAt: Date; 
   developer?: Developer;
+}
+
+export interface Wishlist {
+  id: number;
+  user: User;
+  game: Game;
+  createdAt: Date;
+  isLike: boolean;
 }
 

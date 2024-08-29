@@ -20,6 +20,7 @@ export class ContentHomeComponent implements OnInit {
 
   private gameService: GameService = inject(GameService);
 
+
   public user: User | undefined;
 
   public games: Game[] = [];
@@ -50,6 +51,10 @@ export class ContentHomeComponent implements OnInit {
     });
   }
 
+
+  goToDetail(id: number | undefined) {
+    this.router.navigate(['home/games/'+id]);
+  }
 
   logout() {
     this.auth.logout();
