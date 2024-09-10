@@ -34,22 +34,22 @@ export const routes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
-        canActivate: [userGuard],
+        // canActivate: [userGuard],
         children: [
             {
                 path: '',
                 component: ContentHomeComponent,
-                canActivate: [userGuard]
+                // canActivate: [userGuard]
             },
             {
                 path: 'categories',
                 component: CategoryGamesComponent,
-                canActivate: [userGuard]
+                // canActivate: [userGuard]
             },
             {
                 path: 'games/:id',
                 component: DetailGameComponent,
-                canActivate: [userGuard]
+                // canActivate: [userGuard]
             },
         ]
     },
