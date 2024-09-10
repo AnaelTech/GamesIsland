@@ -1,110 +1,22 @@
 <app-navbar-landing></app-navbar-landing>
-<section class="bg-cover bg-center min-h-screen flex items-center justify-center text-white"
-    style="background-image: url('/assets/hero.webp');">
-    <div class="text-center">
+<section id="hero" class="bg-cover bg-center min-h-screen flex items-center justify-center text-white">
+    <div class="text-center lg:text-left">
         <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mt-20">
             GAMES ISLAND <br>
             <span class="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold mt-4 block">
                 La première plateforme pour les jeux vidéo de la Réunion
             </span>
         </h1>
-
         <div class="mt-16 sm:mt-20 md:mt-24 lg:mt-28">
             <button [routerLink]="['inscription']"
-                class="bg-white text-blue-700 hover:bg-gray-200 font-bold py-2 px-4 rounded-full mx-4">
+                class="bg-[#AFB3B7] text-[#132E35] hover:bg-[#5A636A] hover:text-white font-bold py-2 px-4 rounded-full mx-4">
                 <a>Create Account</a>
             </button>
-            <button class="bg-orange-500 text-white hover:bg-orange-700 font-bold py-2 px-4 rounded-full mx-4">
+            <button class="bg-[#132E35] text-white hover:bg-[#2D4A53]  font-bold py-2 px-4 rounded-full mx-4">
                 <a>Explore Games</a>
             </button>
         </div>
-        <div class="flex flex-wrap justify-around mt-10 container mx-auto">
-            <div class="text-center mb-8 md:w-1/2 lg:w-1/4">
-                <div class="flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-10 h-10">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold">Create your account</h3>
-                <p class="text-sm text-center mx-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-                </p>
-                <button [routerLink]="['inscription']"
-                    class="bg-orange-500 text-white hover:bg-orange-700 font-semibold py-2 px-3 rounded-full mt-4">
-                    <a>Create Account</a>
-                </button>
-            </div>
-
-            <div class="text-center mb-8 md:w-1/2 lg:w-1/4">
-                <div class="flex items-center justify-center">
-                    <svg class="w-10 h-10" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"
-                        stroke="currentColor">
-                        <path
-                            d="M467.51,248.83c-18.4-83.18-45.69-136.24-89.43-149.17A91.5,91.5,0,0,0,352,96c-26.89,0-48.11,16-96,16s-69.15-16-96-16a99.09,99.09,0,0,0-27.2,3.66C89,112.59,61.94,165.7,43.33,248.83c-19,84.91-15.56,152,21.58,164.88,26,9,49.25-9.61,71.27-37,25-31.2,55.79-40.8,119.82-40.8s93.62,9.6,118.66,40.8c22,27.41,46.11,45.79,71.42,37.16C487.1,399.86,486.52,334.74,467.51,248.83Z"
-                            style="fill:none;stroke:#ffffff;stroke-miterlimit:10;stroke-width:32px" />
-                        <circle cx="292" cy="224" r="20" fill="#ffffff" />
-                        <path d="M336,288a20,20,0,1,1,20-19.95A20,20,0,0,1,336,288Z" fill="#ffffff" />
-                        <circle cx="336" cy="180" r="20" fill="#ffffff" />
-                        <circle cx="380" cy="224" r="20" fill="#ffffff" />
-                        <line x1="160" y1="176" x2="160" y2="272"
-                            style="fill:none;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-                        <line x1="208" y1="224" x2="112" y2="224"
-                            style="fill:none;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold">Explore Games</h3>
-                <p class="text-sm text-center mx-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-                </p>
-                <button class="bg-sky-500 text-white hover:bg-sky-700 font-semibold py-2 px-3 rounded-full mt-4">
-                    <a href="#games">Explore Games</a>
-                </button>
-            </div>
-
-            <div class="text-center mb-8 md:w-1/2 lg:w-1/4">
-                <div class="flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-10 h-10">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold">
-                    Publish your games
-                </h3>
-                <p class="text-sm text-center mx-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-                </p>
-                <button [routerLink]="['dev-inscription']"
-                    class="bg-blue-800 text-white hover:bg-blue-900 font-semibold py-2 px-3 rounded-full mt-4">
-                    <a>Join us</a>
-                </button>
-            </div>
-
-            <div class="text-center mb-8 md:w-1/2 lg:w-1/4">
-                <div class="flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-10 h-10">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold">
-                    Find local talent
-                </h3>
-                <p class="text-sm text-center mx-2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-                </p>
-                <button [routerLink]="['inscription']"
-                    class="bg-sky-500 text-white hover:bg-sky-700 font-semibold py-2 px-3 rounded-full mt-4">
-                    <a>Explore Talents</a>
-                </button>
-            </div>
-        </div>
     </div>
 </section>
-<app-content></app-content>
+
 <app-footer></app-footer>

@@ -21,8 +21,7 @@ export class AuthService {
         }
       }),
       catchError((error) => {
-        console.error('Erreur lors de la connexion', error);
-        // Ne pas sauvegarder le token si une erreur survient
+        // console.error('Erreur lors de la connexion', error);
         return throwError(() => new Error('Erreur lors de la connexion'));
       })
     );
