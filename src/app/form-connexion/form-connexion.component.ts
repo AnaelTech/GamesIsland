@@ -2,57 +2,59 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../shared/auth.service';
-import { UserService } from '../shared/user.service';
+import { CookieService } from '../shared/cookie.service';
 
 @Component({
   selector: 'app-form-connexion',
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './form-connexion.component.html',
-  styleUrls: ['./form-connexion.component.css'] // Notez l'utilisation de `styleUrls` au lieu de `styleUrl`
+  styleUrls: ['./form-connexion.component.css']
 })
 export class FormConnexionComponent implements OnInit {
   private auth: AuthService = inject(AuthService);
   private router: Router = inject(Router);
+  private cookieService: CookieService = inject(CookieService);
 
   public formLogin: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
 
-  // Message d'erreur général
   public errorMessage: string = '';
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   Login() {
     if (this.formLogin.valid) {
       this.auth.login(this.formLogin.value).subscribe({
         next: () => {
-          if (this.auth.isLoggedIn()) {
-            // Abonnez-vous à getRoles() pour obtenir les rôles de l'utilisateur
-            this.auth.getRoles().subscribe({
-              next: (roles: string[]) => {
-                if (roles.includes('ROLE_DEVELOPER')) {
+          this.auth.getUserInfo().subscribe({
+            next: (user) => {
+              console.log('User info: ', user);
+              if (user && user.roles) {
+                if (user.roles.includes('ROLE_DEVELOPER')) {
                   this.router.navigate(['/dashboard-dev']);
-                } else if (roles.includes('ROLE_USER')) {
+                } else if (user.roles.includes('ROLE_USER')) {
+                  console.log('user role user');
                   this.router.navigate(['/home']);
                 } else {
+                  console.log('user role connexion');
                   this.router.navigate(['/connexion']);
                 }
-              },
-              error: (error) => {
+              } else {
+                console.log(user);
                 this.router.navigate(['/connexion']);
               }
-            });
-          } else {
-            //console.log('Erreur de connexion');
-            this.errorMessage = 'Email ou mot de passe incorrect';
-            this.router.navigate(['/connexion']);
-          }
+            },
+            error: () => {
+              this.errorMessage = 'Erreur lors de la récupération des informations utilisateur';
+              this.router.navigate(['/connexion']);
+            }
+          });
         },
         error: (error) => {
-          //console.log('Erreur de connexion', error);
           this.errorMessage = 'L\'email ou le mot de passe est incorrect';
           this.router.navigate(['/connexion']);
           this.formLogin.reset();
@@ -63,12 +65,10 @@ export class FormConnexionComponent implements OnInit {
       });
     } else {
       this.errorMessage = 'Veuillez remplir correctement le formulaire';
-      console.log('Formulaire invalide');
       this.markAllControlsAsTouched();
     }
   }
 
-  // Méthode pour vérifier si le champ a une erreur spécifique
   hasError(controlName: string, errorName: string): boolean {
     return this.formLogin.controls[controlName].hasError(errorName) && this.formLogin.controls[controlName].touched;
   }

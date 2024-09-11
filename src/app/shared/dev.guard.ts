@@ -7,14 +7,19 @@ export const devGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  return authService.getRoles().pipe(
-    map((roles) => {
-      if (roles && roles.includes('ROLE_DEVELOPER')) {
-        return true;
+  return authService.getUserInfo().pipe(
+    map((user) => {
+      if (user && user.roles) {
+        if (user.roles.includes('ROLE_DEVELOPER')) {
+          return true;
+          } else {
+          router.navigate(['/connexion']);
+          return false;
+        }
       } else {
         router.navigate(['/connexion']);
         return false;
       }
     })
-  );
+    );
 };

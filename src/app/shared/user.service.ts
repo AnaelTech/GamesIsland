@@ -13,6 +13,7 @@ export class UserService {
   private auth = inject(AuthService);
   private url = environment.apiUrl;
   private http: HttpClient = inject(HttpClient);
+  private userInfos: AuthService = inject(AuthService);
   constructor() { }
 
   getUser(): Observable<User> {
@@ -21,12 +22,20 @@ export class UserService {
   }
 
   getUserId() {
-    const token = this.auth.token();
-    if (token) {
-      const tokenPayload: any = jwtDecode(token);
-      const userId = tokenPayload.id;
-      return userId;
-    }
+    this.auth.getUserInfo().subscribe({
+      next: (user) => {
+        if (user && user.id) {
+          const userId = user.id;
+          return userId;
+        }
+        else {
+         return console.error('Erreur lors de la récupération de l\'id utilisateur');
+        }
+      },
+      error: () => {
+        console.error('Erreur lors de la récupération de l\'id utilisateur');
+      }
+    });
   }
 
   addUser(user:any) {

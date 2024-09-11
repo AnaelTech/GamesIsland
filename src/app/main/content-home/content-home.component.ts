@@ -26,6 +26,7 @@ export class ContentHomeComponent implements OnInit {
   public games: Game[] = [];
 
   private router: Router = inject(Router);
+  public errorMessage: string = '';
 
   constructor() { 
     
@@ -47,7 +48,7 @@ export class ContentHomeComponent implements OnInit {
   getGames() {
     this.gameService.getGames().subscribe((response: ApiListResponse<Game>) => {
       this.games = response['hydra:member']; // Access the `data` property
-      console.log(this.games);
+      // console.log(this.games);
     });
   }
 

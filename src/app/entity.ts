@@ -49,3 +49,8 @@ export interface Wishlist {
   isLike: boolean;
 }
 
+export interface Token {
+  token: string;
+  refreshToken: string;
+}
+
