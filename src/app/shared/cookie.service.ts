@@ -10,8 +10,13 @@ export class CookieService {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Expiration en jours
     const expires = "expires=" + date.toUTCString();
-    document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`; // Ajouter Secure si HTTPS
+    const cookieValue = `${name}=${value};${expires};path=/;`; // Ajouter Secure si HTTPS
+  
+    document.cookie = cookieValue;
+  
+    // console.log('Cookie défini:', cookieValue);  // Ajoutez cette ligne pour vérifier
   }
+  
 
   // Méthode pour récupérer un cookie
   getCookie(name: string): string | null {

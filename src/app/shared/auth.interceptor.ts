@@ -1,26 +1,38 @@
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandlerFn,
+  HttpHeaders,
+  HttpRequest,
+} from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export function authInterceptor(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<unknown>> {
+  const authService = inject(AuthService);
+  const token = getCookie('BEARER');
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.getCookie('BEARER'); // Récupère le token depuis les cookies
-
-    if (token) {
-      const cloned = req.clone({
-        headers: req.headers.set('BEARER', `Bearer ${token}`)
-      });
-
-      return next.handle(cloned);
-    }
-
-    return next.handle(req);
+  if (!token) {
+    return next(req);
   }
 
-  private getCookie(name: string): string | null {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? decodeURIComponent(match[2]) : null;
-  }
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,  // Ajoute le token dans les headers
+  });
+
+  const newReq = req.clone({
+    headers,
+  });
+
+  // console.log('Requête avec le token cloné:', newReq);
+
+  return next(newReq);
+}
+
+function getCookie(name: string): string | null {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
 }

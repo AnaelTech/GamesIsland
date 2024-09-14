@@ -31,20 +31,20 @@ export class FormConnexionComponent implements OnInit {
       this.auth.login(this.formLogin.value).subscribe({
         next: () => {
           this.auth.getUserInfo().subscribe({
-            next: (user) => {
-              console.log('User info: ', user);
+            next: (response) => {
+              // console.log('User info: ', response);
+              const user = response;
               if (user && user.roles) {
                 if (user.roles.includes('ROLE_DEVELOPER')) {
                   this.router.navigate(['/dashboard-dev']);
                 } else if (user.roles.includes('ROLE_USER')) {
-                  console.log('user role user');
                   this.router.navigate(['/home']);
                 } else {
                   console.log('user role connexion');
                   this.router.navigate(['/connexion']);
                 }
               } else {
-                console.log(user);
+                console.log('Problème avec le user : ', user);
                 this.router.navigate(['/connexion']);
               }
             },

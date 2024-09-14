@@ -23,7 +23,8 @@ export class UserService {
 
   getUserId() {
     this.auth.getUserInfo().subscribe({
-      next: (user) => {
+      next: (response) => {
+        const user = response;
         if (user && user.id) {
           const userId = user.id;
           return userId;

@@ -38,12 +38,20 @@ export class ContentHomeComponent implements OnInit {
     this.getGames();
   }
 
+
   getUser() {
-    this.userService.getUser().subscribe((data: User) => {
-      this.user = data;
-      console.log(this.user);
+    this.auth.getUserInfo().subscribe({
+      next: (response) => {
+        const user = response; 
+        this.user = user; 
+        // console.log(this.user);
+      },
+      error: () => {
+        console.error('Erreur lors de la récupération de l\'id utilisateur');
+      }
     });
   }
+
 
   getGames() {
     this.gameService.getGames().subscribe((response: ApiListResponse<Game>) => {
