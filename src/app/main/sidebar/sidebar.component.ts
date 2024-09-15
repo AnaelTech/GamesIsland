@@ -24,6 +24,6 @@ export class SidebarComponent {
   checkScreenSize() {
     const width = window.innerWidth;
     // Définir un seuil de largeur pour mobile
-    this.isMobile = width < 768;  // Par exemple, 768px pour les appareils mobiles
+    this.isMobile = width < 1194;  // Par exemple, 768px pour les appareils mobiles
   }
 }
