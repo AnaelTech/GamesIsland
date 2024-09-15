@@ -16,27 +16,8 @@ export class UserService {
   private userInfos: AuthService = inject(AuthService);
   constructor() { }
 
-  getUser(): Observable<User> {
-    const id = this.getUserId();
+  getUser(id: string): Observable<User> {
     return this.http.get<User>(this.url + 'users/' + id);
-  }
-
-  getUserId() {
-    this.auth.getUserInfo().subscribe({
-      next: (response) => {
-        const user = response;
-        if (user && user.id) {
-          const userId = user.id;
-          return userId;
-        }
-        else {
-         return console.error('Erreur lors de la récupération de l\'id utilisateur');
-        }
-      },
-      error: () => {
-        console.error('Erreur lors de la récupération de l\'id utilisateur');
-      }
-    });
   }
 
   addUser(user:any) {

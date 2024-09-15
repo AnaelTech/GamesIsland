@@ -2,13 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../shared/user.service';
 import { ApiListResponse, Game, User } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { GameService } from '../../shared/game.service';
+import { Base64 } from 'js-base64';
 
 @Component({
   selector: 'app-content-home',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './content-home.component.html',
   styleUrl: './content-home.component.css'
 })
@@ -62,7 +63,13 @@ export class ContentHomeComponent implements OnInit {
 
 
   goToDetail(id: number | undefined) {
-    this.router.navigate(['home/games/'+id]);
+    const encodedId = Base64.encode(String(id));
+    this.router.navigate(['/home/games/' + encodedId]);
+  }
+
+  goToProfile() {
+    const encodedId = Base64.encode(String(this.user?.id));
+    this.router.navigate(['/home/profile/' + encodedId]);
   }
 
   logout() {

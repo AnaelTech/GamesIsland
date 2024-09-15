@@ -6,6 +6,7 @@ import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { WishlistService } from '../../shared/wishlist.service';
 import { NgClass } from '@angular/common';
+import { Base64 } from 'js-base64';
 
 @Component({
   selector: 'app-detail-game',
@@ -44,24 +45,22 @@ export class DetailGameComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUser().subscribe((data: User) => {
+    this.auth.getUserInfo().subscribe((data: User) => {
       this.user = data;
       console.log(this.user);
     });
   } 
 
   getIdurl() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.gameService.getGame(id).subscribe({
-        next: (data: Game) => {
+    this.route.paramMap.subscribe(params => {
+      const encodedId = params.get('id');
+      if (encodedId) {
+        const id = Base64.decode(encodedId);
+        this.gameService.getGame(id).subscribe((data: Game) => {
           this.game = data;
-        },
-        error: (err) => {
-          console.error('Failed to fetch game', err);
-        }
-      });
-    }
+        });
+      }
+    });
   }
 
   checkWishlist() {

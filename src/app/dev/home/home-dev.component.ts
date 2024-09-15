@@ -30,7 +30,7 @@ export class HomeDevComponent {
   }
 
   getUser() {
-    this.userService.getUser().subscribe((data: User) => {
+    this.auth.getUserInfo().subscribe((data: User) => {
       this.user = data;
       console.log(this.user);
     });

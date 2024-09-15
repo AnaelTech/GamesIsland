@@ -46,12 +46,7 @@ export class AuthService {
       console.error('Token JWT manquant');
       return throwError(() => new Error('Token JWT manquant'));
     }
-  
-    // const headers = new HttpHeaders({
-    //   Authorization: `Bearer ${token}`,
-    // });
-    
-  
+
     return this.http.get<User>(`${this.urlme}me`, { withCredentials: true}).pipe(
       tap((user) => {
         this.user = user;
