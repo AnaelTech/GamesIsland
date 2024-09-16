@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/router": "^17.2.0",
     "flowbite": "^2.5.1",
+    "izitoast": "^1.4.0",
     "js-base64": "^3.7.7",
     "jwt-decode": "^4.0.0",
     "rxjs": "~7.8.0",

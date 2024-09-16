@@ -37,8 +37,10 @@ export class FormConnexionComponent implements OnInit {
               if (user && user.roles) {
                 if (user.roles.includes('ROLE_DEVELOPER')) {
                   this.router.navigate(['/dashboard-dev']);
+                  localStorage.setItem('Connexion réussie', 'true');
                 } else if (user.roles.includes('ROLE_USER')) {
                   this.router.navigate(['/home']);
+                  localStorage.setItem('Connexion réussie', 'true');
                 } else {
                   console.log('user role connexion');
                   this.router.navigate(['/connexion']);

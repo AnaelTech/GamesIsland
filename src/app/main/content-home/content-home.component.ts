@@ -5,6 +5,7 @@ import { AuthService } from '../../shared/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { GameService } from '../../shared/game.service';
 import { Base64 } from 'js-base64';
+import iziToast from 'izitoast';
 
 @Component({
   selector: 'app-content-home',
@@ -37,6 +38,18 @@ export class ContentHomeComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getGames();
+
+    if (localStorage.getItem('Connexion réussie')) {
+    iziToast.success({
+      title: 'Connexion réussie',
+      position: 'bottomRight',
+      message: 'Vous êtes maintenant connecté avec succès',
+      timeout: 3000,
+      progressBar: true,
+      pauseOnHover: true,
+  });
+  localStorage.removeItem('Connexion réussie');
+}
   }
 
 

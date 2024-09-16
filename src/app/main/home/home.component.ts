@@ -10,5 +10,4 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent  {
-  
 }
