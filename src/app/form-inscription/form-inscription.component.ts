@@ -29,6 +29,7 @@ constructor() {}
 ngOnInit(): void {}
 
 Inscription(){
+  console.log(this.formInscription.value);
   if (this.formInscription.valid) {
     this.userService.addUser(this.formInscription.value).subscribe({
       next: () => {
@@ -43,6 +44,7 @@ Inscription(){
   } else {
     this.errorMessage = 'Veuillez remplir correctement le formulaire';
     console.log('Formulaire invalide');
+    console.log(this.formInscription.value);
     this.formInscription.reset();
 }
 }
