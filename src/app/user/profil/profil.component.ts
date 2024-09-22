@@ -107,7 +107,6 @@ export class ProfilComponent implements OnInit {
     }
   }
   
-
   enableEditing(): void {
     this.isEditing = !this.isEditing;
   }
