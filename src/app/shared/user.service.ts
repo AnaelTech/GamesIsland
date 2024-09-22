@@ -31,7 +31,7 @@ export class UserService {
     return this.http.patch(this.url + 'users/' + userId, user,);
   }
 
-  deleteUser(user:any) {
-    return this.http.delete(this.url + 'users', user);
+  deleteUser(userId: number | undefined) {
+    return this.http.delete(this.url + 'users/' + userId);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Base64 } from 'js-base64';
 import { Game, User } from '../../entity';
 import { UserService } from '../../shared/user.service';
@@ -23,6 +23,8 @@ export class ProfilComponent implements OnInit {
   public games: Game[] = [];
 
   isEditing: boolean = false;
+
+  private router: Router = inject(Router);
 
   private route: ActivatedRoute = inject(ActivatedRoute);
 
@@ -82,7 +84,6 @@ export class ProfilComponent implements OnInit {
               title: 'Erreur lors de la mise à jour du pseudo',
               message: 'Une erreur est survenue lors de la mise à jour du pseudo. Veuillez réessayer.',
               position: 'bottomRight',
-              timeout: 3000,
               close: true,
             });
           }
@@ -107,6 +108,60 @@ export class ProfilComponent implements OnInit {
     }
   }
   
+  deleteAccount() {
+    iziToast.question({
+        title: 'Êtes-vous sûr ?',
+        message: 'Vous êtes sur le point de supprimer votre compte.',
+        position: 'center',
+        color: 'red',
+        maxWidth: 500,
+        closeOnClick: true,
+        buttons: [
+            ['<button>Oui</button>', (instance, toast, button, event, inputs) => {
+                if (this.user) {
+                    this.userService.deleteUser(this.user.id).subscribe({
+                        next: () => {
+                            this.user = undefined;
+                            this.router.navigate(['/connexion']);
+                            iziToast.success({
+                                title: 'Compte supprimé',
+                                message: 'Votre compte a été supprimé avec succès.',
+                                position: 'bottomRight',
+                                timeout: 3000,
+                                close: true,
+                            });
+                        },
+                        error: (error) => {
+                            console.error('Erreur de connexion', error);
+                            iziToast.error({
+                                title: 'Erreur lors de la suppression du compte',
+                                message: 'Une erreur est survenue lors de la suppression du compte. Veuillez réessayer.',
+                                position: 'bottomRight',
+                                timeout: 3000,
+                                close: true,
+                            });
+                        }
+                    });
+                } else {
+                    iziToast.error({
+                        title: 'Erreur',
+                        message: 'Utilisateur non trouvé.',
+                        position: 'bottomRight',
+                        timeout: 3000,
+                        close: true,
+                    });
+                }
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                return true;
+            }, true],
+            ['<button>Non</button>', (instance, toast, button, event, inputs) => {
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+                return true; 
+            }, true] 
+        ]
+    });
+}
+
   enableEditing(): void {
     this.isEditing = !this.isEditing;
   }
