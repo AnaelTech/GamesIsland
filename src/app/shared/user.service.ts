@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../entity';
 import { AuthService } from './auth.service';
@@ -22,5 +22,16 @@ export class UserService {
 
   addUser(user:any) {
     return this.http.post(this.url + 'users', user);
+  }
+
+  updateUser(user:any, userId: number | undefined) {
+    const headears = new HttpHeaders({
+      'Content-Type': 'application/merge-patch+json',
+    });
+    return this.http.patch(this.url + 'users/' + userId, user,);
+  }
+
+  deleteUser(user:any) {
+    return this.http.delete(this.url + 'users', user);
   }
 }

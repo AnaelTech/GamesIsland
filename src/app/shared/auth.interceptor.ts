@@ -19,15 +19,18 @@ export function authInterceptor(
     return next(req);
   }
 
-  const headers = new HttpHeaders({
+  let headers = new HttpHeaders({
     Authorization: `Bearer ${token}`,  // Ajoute le token dans les headers
   });
+
+  // Vérifiez si la méthode est PATCH
+  if (req.method === 'PATCH') {
+    headers = headers.set('Content-Type', 'application/merge-patch+json');
+  }
 
   const newReq = req.clone({
     headers,
   });
-
-  // console.log('Requête avec le token cloné:', newReq);
 
   return next(newReq);
 }
