@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Game, User, Wishlist } from '../../entity';
+import { Game, User } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
 import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { WishlistService } from '../../shared/wishlist.service';
 import { NgClass } from '@angular/common';
 import { Base64 } from 'js-base64';
+// import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-game',
@@ -23,6 +24,8 @@ export class DetailGameComponent implements OnInit {
   private gameService: GameService = inject(GameService);
 
   private wishlistService: WishlistService = inject(WishlistService);
+
+  // private sanitizer: DomSanitizer = inject(DomSanitizer);
 
   public user: User | undefined;
 
@@ -127,4 +130,11 @@ export class DetailGameComponent implements OnInit {
     this.auth.logout();
     this.router.navigate(['/']);
   }
+
+  // getYoutubeEmbedUrl(url: string): SafeResourceUrl {
+  //   const videoId = url.split('v=')[1];
+  //   const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+  //   return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  // }
+
 }

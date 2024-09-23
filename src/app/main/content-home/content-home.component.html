@@ -108,10 +108,11 @@
         @for(game of games; track game.id) {
         <div (click)="goToDetail(game.id)"
             class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
-            <img [src]="game.coverImage" alt="{{game.title}}" class="rounded-lg mb-4 w-full">
+            <img [src]="'http://localhost:8000' +game.coverImage" alt="{{game.title}}"
+                class="rounded-lg mb-4 w-full h-64 object-cover" loading="lazy">
             <h4>{{ game.title }}</h4>
             @if(game.price === '0' ){
-            <p class="text-gray-800">Free</p>
+            <p class=" text-gray-800">Free</p>
             } @else {
             <p class="text-gray-800">{{ game.price}} €</p>
             }
