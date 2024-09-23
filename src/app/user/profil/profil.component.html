@@ -2,7 +2,6 @@
     <!-- Top section with header and actions -->
     <div class="flex justify-between items-center">
         <div class="flex items-center space-x-4">
-            <img [src]="user?.avatar" alt="Profile picture" class="w-12 h-12 rounded-full">
             <div>
                 <h1 class="text-xl font-bold">Bienvenue {{user?.username}}</h1>
             </div>
@@ -12,9 +11,10 @@
     <!-- Player cards section -->
     <div class="mt-6 grid grid-cols-1 md:grid-cols-1 gap-8 ">
         <div class="bg-gray-800 p-20 rounded-lg">
+            <img [src]="user?.avatar" alt="Profile picture" class="w-12 h-12 rounded-full">
             <div class="flex items-center space-x-4">
                 <div>
-                    <h2 class="text-lg font-bold flex items-center">
+                    <h2 class="text-lg font-bold flex items-center mt-4">
                         <span id="username-display">{{user?.username}}</span>
                         <span id="edit-icon" class="text-gray-400 cursor-pointer ml-2">
                             <!-- Pencil icon for editing -->
@@ -52,7 +52,7 @@
                                 utilisateur</span>
 
                             <!-- Bouton de sauvegarde -->
-                            <button class="mt-4 p-2 bg-blue-500 text-white rounded w-32">
+                            <button class="mt-4 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded w-32">
                                 Sauvegarder
                             </button>
                         </div>
@@ -62,8 +62,9 @@
                 </div>
             </div>
             <div class="mt-4">
-                <div class="flex">
-                    <button (click)="deleteAccount()" class="mt-4 p-2 bg-red-700 text-white rounded w-auto">
+                <div class="flex justify-end">
+                    <button (click)="deleteAccount()"
+                        class="mt-4 p-2 bg-red-700 text-white hover:bg-red-600 rounded w-auto">
                         Supprimer le compte
                     </button>
                 </div>
