@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
@@ -13,8 +13,12 @@ export class GameService {
 
   constructor() { }
 
-  getGames():Observable<ApiListResponse<Game>> {
-    return this.http.get<ApiListResponse<Game>>(this.url + 'games');
+  getGames(search?: string):Observable<ApiListResponse<Game>> {
+    let params = new HttpParams();
+    if (search){
+      params = params.append('title', search);
+    }
+    return this.http.get<ApiListResponse<Game>>(this.url + 'games', {params});
   }
 
   getGame(id: string): Observable<Game> {

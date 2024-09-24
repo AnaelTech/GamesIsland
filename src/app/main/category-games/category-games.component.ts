@@ -5,6 +5,7 @@ import { AuthService } from '../../shared/auth.service';
 import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { KeyValuePipe } from '@angular/common';
+import { Base64 } from 'js-base64';
 
 @Component({
   selector: 'app-category-games',
@@ -51,7 +52,8 @@ export class CategoryGamesComponent implements OnInit {
   }
 
   goToDetail(id: number | undefined) {
-    this.router.navigate(['home/games/'+id]);
+    const encodedId = Base64.encode(String(id));
+    this.router.navigate(['/home/games/' + encodedId]);
   }
 
   getGames() {

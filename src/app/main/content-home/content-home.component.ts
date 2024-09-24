@@ -6,11 +6,13 @@ import { Router, RouterLink } from '@angular/router';
 import { GameService } from '../../shared/game.service';
 import { Base64 } from 'js-base64';
 import iziToast from 'izitoast';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-content-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './content-home.component.html',
   styleUrl: './content-home.component.css'
 })
@@ -22,6 +24,7 @@ export class ContentHomeComponent implements OnInit {
 
   private gameService: GameService = inject(GameService);
 
+  public searchTerm: string = '';
 
   public user: User | undefined;
 
@@ -50,6 +53,9 @@ export class ContentHomeComponent implements OnInit {
   });
   localStorage.removeItem('Connexion réussie');
 }
+
+console.log(this.searchTerm);
+
   }
 
 
@@ -89,4 +95,12 @@ export class ContentHomeComponent implements OnInit {
     this.auth.logout();
     this.router.navigate(['/']);
   }
+
+  searchGames(search: string) {
+    this.gameService.getGames(search).subscribe((response: ApiListResponse<Game>) => {
+      this.games = response['hydra:member'];
+    });
+  }
+  
+
 }

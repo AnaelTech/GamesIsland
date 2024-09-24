@@ -3,8 +3,12 @@
     <!-- Barre de recherche et informations utilisateur -->
     <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 space-y-4 lg:space-y-0 ">
         <div class="relative w-full lg:w-1/2">
-            <input type="text" placeholder="Search"
+            <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="searchGames(searchTerm)"
+                placeholder="Rechercher un jeux..."
                 class="w-full px-4 py-2 rounded-full bg-gray-200 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            @if(errorMessage){
+            <p class="text-red-500 text-sm mt-2">{{ errorMessage }}</p>
+            }
         </div>
         <button type="button" class="flex items-center text-sm rounded-full md:me-0" id="user-menu-button"
             aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
@@ -69,7 +73,7 @@
             </div>
             <!-- Item 2 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/assets/TFT.webp" class="w-full h-full object-cover" alt="...">
+                <img src="/assets/TFT.webp" class="w-full h-full object-cover " alt="...">
             </div>
             <!-- Item 3 -->
             <div class="hidden duration-700 ease-in-out" data-carousel-item>

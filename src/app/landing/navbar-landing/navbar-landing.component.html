@@ -1,4 +1,4 @@
-<nav class="bg-transparent absolute top-0 left-0 w-full z-10">
+<nav class="bg-transparent absolute top-0 left-0 w-full z-10" aria-label="Main navigation">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="/assets/GamesIsland-Logo.webp" class="h-8 rounded-full" alt="GamesIsland Logo" />
@@ -18,28 +18,34 @@
                 class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent dark:bg-transparent md:dark:bg-transparent dark:border-gray-700">
                 <li>
                     <a [routerLink]="['inscription']"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:hidden">Sign
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:hidden"
+                        aria-label="Inscription">Sign
                         Up</a>
                     <button [routerLink]="['inscription']"
-                        class="hidden md:block bg-white rounded-full text-[#132E35] hover:bg-gray-100 hover:text-gray-900 font-bold py-1 px-4 rounded transition-colors duration-200">
+                        class="hidden md:block bg-white rounded-full text-[#132E35] hover:bg-gray-100 hover:text-gray-900 font-bold py-1 px-4 rounded transition-colors duration-200"
+                        aria-label="Inscription">
                         Sign Up
                     </button>
                 </li>
                 <li>
                     <a [routerLink]="['dev-inscription']"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:hidden">Developers</a>
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:hidden"
+                        aria-label="Développeurs">Developers</a>
                     <button [routerLink]="['dev-inscription']"
-                        class="hidden md:block bg-[#132E35]  rounded-full  text-gray-100 hover:bg-[#2D4A53]  font-bold py-1 px-4 rounded transition-colors duration-200">
+                        class="hidden md:block bg-[#132E35]  rounded-full  text-gray-100 hover:bg-[#2D4A53]  font-bold py-1 px-4 rounded transition-colors duration-200"
+                        aria-label="Développeurs">
                         Developers
                     </button>
                 </li>
                 <li>
                     <a [routerLink]="['connexion']"
-                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:hidden">
+                        class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:hidden"
+                        aria-label="Connexion">
                         Connexion
                     </a>
                     <a [routerLink]="['connexion']"
-                        class="hidden md:block block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                        class="hidden md:block block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                        aria-label="Connexion">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="white" class="size-6 mt-2">
                             <path stroke-linecap="round" stroke-linejoin="round"

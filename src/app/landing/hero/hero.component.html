@@ -1,19 +1,25 @@
 <app-navbar-landing></app-navbar-landing>
-<section id="hero" class="bg-cover bg-center min-h-screen flex items-center justify-center text-white">
+<section id="hero" class="bg-cover bg-center min-h-screen flex items-center justify-center text-white"
+    aria-label="Hero Section">
     <div class="text-center lg:text-left">
-        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mt-20">
+        <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mt-20" role="heading"
+            aria-level="1">
             GAMES ISLAND <br>
-            <span class="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold mt-4 block">
+            <span class="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold mt-4 block" role="heading"
+                aria-level="2">
                 La première plateforme pour les jeux vidéo de la Réunion
             </span>
         </h1>
         <div class="mt-16 sm:mt-20 md:mt-24 lg:mt-28">
-            <button [routerLink]="['inscription']"
-                class="bg-[#AFB3B7] text-[#132E35] hover:bg-[#5A636A] hover:text-white font-bold py-2 px-4 rounded-full mx-4">
-                <a>Create Account</a>
+            <button [routerLink]="['/inscription']"
+                class="bg-[#AFB3B7] text-[#132E35] hover:bg-[#5A636A] hover:text-white font-bold py-2 px-4 rounded-full mx-4"
+                aria-label="Créer un compte">
+                Créer un compte
             </button>
-            <button class="bg-[#132E35] text-white hover:bg-[#2D4A53]  font-bold py-2 px-4 rounded-full mx-4">
-                <a>Explore Games</a>
+            <button [routerLink]="['/explore']"
+                class="bg-[#132E35] text-white hover:bg-[#2D4A53] font-bold py-2 px-4 rounded-full mx-4"
+                aria-label="Explorer les jeux">
+                Explorer les jeux
             </button>
         </div>
     </div>
