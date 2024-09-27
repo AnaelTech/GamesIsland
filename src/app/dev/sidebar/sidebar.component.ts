@@ -1,25 +1,44 @@
 import { Component, ElementRef, HostListener, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { User } from '../../entity';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  isSidebarOpen = false;
-  private elementRef= inject(ElementRef);
+  public isMobile: boolean | undefined;
 
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
+  
+  public auth: AuthService = inject(AuthService);
+
+  public user: User | undefined;
+
+  constructor() {
+    // On initialise avec la taille actuelle de l'écran
+    this.checkScreenSize();
+    this.getUser();
   }
 
-  @HostListener('document:click', ['$event'])
-  onClickOutside(event: Event) {
-    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-    if (!clickedInside) {
-      this.isSidebarOpen = false;
-    }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenSize();
   }
+
+  checkScreenSize() {
+    const width = window.innerWidth;
+    // Définir un seuil de largeur pour mobile
+    this.isMobile = width < 1194;  // Par exemple, 768px pour les appareils mobiles
+  }
+  
+  getUser() {
+    this.auth.getUserInfo().subscribe((data: User) => {
+      this.user = data;
+    });
+  }
+
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
 import { UserService } from '../../shared/user.service';
+import { Base64 } from 'js-base64';
 
 @Component({
   selector: 'app-home',
@@ -39,5 +40,10 @@ export class HomeDevComponent {
   logout() {
     this.auth.logout();
     this.router.navigate(['/']);
+  }
+
+  goToProfile() {
+    const encodedId = Base64.encode(String(this.user?.id));
+    this.router.navigate(['/home/profile/' + encodedId]);
   }
 }

@@ -131,6 +131,10 @@ export class DetailGameComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  goToProfile() {
+    const encodedId = Base64.encode(String(this.user?.id));
+    this.router.navigate(['/home/profile/' + encodedId]);
+  }
   // getYoutubeEmbedUrl(url: string): SafeResourceUrl {
   //   const videoId = url.split('v=')[1];
   //   const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : '';
