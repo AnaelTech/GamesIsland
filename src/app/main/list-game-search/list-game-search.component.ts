@@ -60,7 +60,7 @@ export class ListGameSearchComponent implements OnInit {
     this.gameService.getGames().subscribe((response: ApiListResponse<Game>) => {
       this.games = response['hydra:member'];
       console.log(this.games);
-      this.gamesByGenre = this.sortGamesByGenre(this.games); // Sort and store games by genre
+      this.gamesByGenre = this.sortGamesByGenre(this.games);
       console.log(this.gamesByGenre);
     });
   }

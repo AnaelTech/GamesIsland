@@ -79,4 +79,8 @@ export class CategoryGamesComponent implements OnInit {
     return sortedGames;
   }
 
+  goToProfile() {
+    const encodedId = Base64.encode(String(this.user?.id));
+    this.router.navigate(['/home/profile/' + encodedId]);
+  }
 }
