@@ -66,22 +66,32 @@
         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
             <div>
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Jeux déployés</h2>
-                <p class="text-gray-500">An immersive, open-world action RPG set in the world first introduced in the
-                    Harry Potter</p>
             </div>
         </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-            <div class="bg-white p-4 rounded-lg shadow">
-                <img src="spiderman.png" alt="Spiderman" class="rounded-lg mb-4 w-full">
+            @for(game of gamesDeveloper; track game.id) {
+            <div
+                class="bg-white p-4 rounded-lg shadow cursor-pointer transition transform hover:shadow-lg hover:-translate-y-1">
+                <img [src]="'http://localhost:8000' +game.coverImage" alt="{{game.title}}"
+                    class="rounded-lg mb-4 w-full">
+                <p class="text-gray-800">{{game.title}}</p>
+                <p class="text-gray-800">Genre: {{game.genre}}</p>
+                <p class="text-gray-800">Created at : {{game.createdAt | date}}</p>
                 <p class="text-gray-800">Quantité vendu : ...</p>
             </div>
-            <div class="bg-white p-4 rounded-lg shadow">
-                <img src="mortal_kombat.png" alt="Mortal Kombat" class="rounded-lg mb-4 w-full">
-                <p class="text-gray-800">Quantité vendu : ...</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow">
-                <img src="fortnite.png" alt="Fortnite" class="rounded-lg mb-4 w-full">
-                <p class="text-gray-800">Quantité vendu : ...</p>
+            }
+            <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg border-2 border-gray-200 cursor-pointer">
+                <div class="flex items-center justify-center py-5">
+                    <h3>ADD NEW GAME</h3>
+                </div>
+                <div class="flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-10">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </div>
             </div>
         </div>
     </div>

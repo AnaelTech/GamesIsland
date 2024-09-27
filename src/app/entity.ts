@@ -39,7 +39,7 @@ export interface Game {
   trailerUrl?: string; 
   createdAt: Date;
   updateAt: Date; 
-  developer?: Developer;
+  developer: string;
 }
 
 export interface Wishlist {
