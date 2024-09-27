@@ -26,7 +26,7 @@ export interface Developer {
 }
 
 export interface Game {
-  ['@id']: string;
+  '@id': string;
   id?: number; 
   title: string;
   description: string;
