@@ -23,6 +23,8 @@ export class FormConnexionComponent implements OnInit {
 
   public errorMessage: string = '';
 
+  public showPassword: boolean = false;
+
   ngOnInit(): void {
   }
 
@@ -75,9 +77,15 @@ export class FormConnexionComponent implements OnInit {
     return this.formLogin.controls[controlName].hasError(errorName) && this.formLogin.controls[controlName].touched;
   }
 
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   private markAllControlsAsTouched(): void {
     Object.keys(this.formLogin.controls).forEach(controlName => {
       this.formLogin.controls[controlName].markAsTouched();
     });
   }
+
+
 }

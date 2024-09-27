@@ -76,7 +76,7 @@ console.log(this.searchTerm);
   getGames() {
     this.gameService.getGames().subscribe((response: ApiListResponse<Game>) => {
       this.games = response['hydra:member'];
-      console.log(this.games);
+      // console.log(this.games);
     });
   }
 
