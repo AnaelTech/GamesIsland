@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Developer, Game, User } from '../../entity';
+import { Developer, Game, User, Wishlist } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
 import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
@@ -37,6 +37,8 @@ export class DetailGameComponent implements OnInit {
   public user: User | undefined;
 
   public game: Game | undefined;
+
+  public wishList: Wishlist | undefined;
 
   private router: Router = inject(Router);
 
@@ -157,6 +159,8 @@ export class DetailGameComponent implements OnInit {
   goToProfileDeveloper(id: number | undefined) {
     this.router.navigate(['/home/profile-studio/' + id]);
   }
+
+  
 
   // getYoutubeEmbedUrl(url: string): SafeResourceUrl {
   //   const videoId = url.split('v=')[1];
