@@ -1,12 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Game, User } from '../../entity';
+import { Developer, Game, User } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
 import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { WishlistService } from '../../shared/wishlist.service';
 import { NgClass } from '@angular/common';
 import { Base64 } from 'js-base64';
+import { DeveloperService } from '../../shared/developer.service';
+import { HttpClient } from '@angular/common/http';
 // import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
@@ -25,7 +27,12 @@ export class DetailGameComponent implements OnInit {
 
   private wishlistService: WishlistService = inject(WishlistService);
 
+  private developerService: DeveloperService = inject(DeveloperService);
   // private sanitizer: DomSanitizer = inject(DomSanitizer);
+
+  public developer: Developer | undefined;
+
+  private http : HttpClient = inject(HttpClient);
 
   public user: User | undefined;
 
@@ -50,7 +57,7 @@ export class DetailGameComponent implements OnInit {
   getUser() {
     this.auth.getUserInfo().subscribe((data: User) => {
       this.user = data;
-      console.log(this.user);
+      // console.log(this.user);
     });
   } 
 
@@ -61,6 +68,9 @@ export class DetailGameComponent implements OnInit {
         const id = Base64.decode(encodedId);
         this.gameService.getGame(id).subscribe((data: Game) => {
           this.game = data;
+          if (this.game?.developer) {
+            this.getDeveloper(this.game?.developer);
+          }
         });
       }
     });
@@ -89,7 +99,7 @@ export class DetailGameComponent implements OnInit {
   
         this.wishlistService.addWishlist(wishlist).subscribe({
           next: (data: any) => {
-            console.log('Wishlist added:', data);
+            // console.log('Wishlist added:', data);
             this.isInWishlist = true;
           },
           error: (err) => {
@@ -135,6 +145,19 @@ export class DetailGameComponent implements OnInit {
     const encodedId = Base64.encode(String(this.user?.id));
     this.router.navigate(['/home/profile/' + encodedId]);
   }
+
+  getDeveloper(uri: string) {
+    this.http.get<Developer>('http://localhost:8000' + uri).subscribe((data: Developer) => {
+      this.developer = data;
+      // console.log(this.developer);
+    });
+    return this.developer;
+  }
+
+  goToProfileDeveloper(id: number | undefined) {
+    this.router.navigate(['/home/profile/' + id]);
+  }
+
   // getYoutubeEmbedUrl(url: string): SafeResourceUrl {
   //   const videoId = url.split('v=')[1];
   //   const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : '';
