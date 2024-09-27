@@ -17,6 +17,7 @@ export interface ApiListResponse<T> {
   }
 
 export interface Developer {
+  '@id': string;
   id?: number; 
   studioName: string;
   website?: string; 

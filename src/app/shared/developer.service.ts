@@ -21,4 +21,9 @@ export class DeveloperService {
   getDevelopers():Observable<Developer[]> {
     return this.http.get<Developer[]>(this.url + 'developers');
   }
+
+  getDeveloper(id: string): Observable<Developer> {
+    return this.http.get<Developer>(this.url + 'developers/' + id);
+  }
+
 }

@@ -155,7 +155,7 @@ export class DetailGameComponent implements OnInit {
   }
 
   goToProfileDeveloper(id: number | undefined) {
-    this.router.navigate(['/home/profile/' + id]);
+    this.router.navigate(['/home/profile-studio/' + id]);
   }
 
   // getYoutubeEmbedUrl(url: string): SafeResourceUrl {

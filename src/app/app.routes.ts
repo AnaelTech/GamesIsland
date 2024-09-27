@@ -13,6 +13,7 @@ import { userGuard } from './shared/user.guard';
 import { CategoryGamesComponent } from './main/category-games/category-games.component';
 import { DetailGameComponent } from './main/detail-game/detail-game.component';
 import { ProfilComponent } from './user/profil/profil.component';
+import { ProfilStudioComponent } from './main/profil-studio/profil-studio.component';
 
 
 export const routes: Routes = [
@@ -57,6 +58,11 @@ export const routes: Routes = [
                 component: ProfilComponent,
                 canActivate: [userGuard],
             },
+            {
+                path: 'profile-studio/:id',
+                component: ProfilStudioComponent,
+                canActivate: [userGuard]
+            }
         ]
     },
     {
