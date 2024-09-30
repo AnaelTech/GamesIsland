@@ -28,6 +28,7 @@ export interface Developer {
 }
 
 export interface Game {
+  [x: string]: any;
   '@id': string;
   id?: number; 
   title: string;
