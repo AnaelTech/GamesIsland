@@ -96,6 +96,9 @@
                                 }
                             </button>
                         </div>
+                        <div class="text-sm text-gray-500 mt-2">
+                            <span class="cursor-pointer" (click)="goToResetPassword()">Mot de passe oublié ?</span>
+                        </div>
 
                         <!-- Message d'erreur pour le mot de passe -->
                         @if (hasError('password', 'required')) {

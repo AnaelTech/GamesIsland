@@ -87,5 +87,8 @@ export class FormConnexionComponent implements OnInit {
     });
   }
 
+  goToResetPassword(): void {
+    this.router.navigate(['/forgot-password']);
+  }
 
 }

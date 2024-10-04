@@ -14,6 +14,8 @@ import { CategoryGamesComponent } from './main/category-games/category-games.com
 import { DetailGameComponent } from './main/detail-game/detail-game.component';
 import { ProfilComponent } from './user/profil/profil.component';
 import { ProfilStudioComponent } from './main/profil-studio/profil-studio.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 export const routes: Routes = [
@@ -32,6 +34,14 @@ export const routes: Routes = [
     {
         path: 'dev-inscription',
         component: FormInscriptionDevComponent
+    },
+    {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
+    },
+    {
+        path:'reset-password',
+        component: ResetPasswordComponent
     },
     {
         path: 'home',

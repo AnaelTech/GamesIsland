@@ -18,9 +18,9 @@ export function authInterceptor(
   if (!token) {
     return next(req);
   }
-
+// Ajoute le token dans les headers
   let headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`,  // Ajoute le token dans les headers
+    Authorization: `Bearer ${token}`,  
   });
 
   // Vérifiez si la méthode est PATCH
