@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [NgClass],
   templateUrl: './detail-game.component.html',
-  styleUrl: './detail-game.component.css'
+  styleUrls: ['./detail-game.component.css']  // Correction de 'styleUrl' en 'styleUrls'
 })
 export class DetailGameComponent implements OnInit {
   private auth: AuthService = inject(AuthService);
@@ -23,70 +23,76 @@ export class DetailGameComponent implements OnInit {
   private gameService: GameService = inject(GameService);
   private wishlistService: WishlistService = inject(WishlistService);
   private developerService: DeveloperService = inject(DeveloperService);
-  private http : HttpClient = inject(HttpClient);
-
-  public developer: Developer | undefined;
-  public user: User | undefined;
-  public game: Game | undefined;
-  public isInWishlist: boolean = false;
-
+  private http: HttpClient = inject(HttpClient);
   private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
 
-  constructor() { }
+  public developer?: Developer; // Utilisation de l'opérateur '?' pour les types optionnels
+  public user?: User;
+  public game?: Game;
+  public isInWishlist: boolean = false;
+
+  constructor() {}
 
   ngOnInit(): void {
     this.getUser();
     this.getIdurl();
   }
 
-  getUser() {
-    this.auth.getUserInfo().subscribe((data: User) => {
-      this.user = data;
-      if (this.game) {
+  getUser(): void {
+    this.auth.getUserInfo().subscribe({
+      next: (data: User) => {
+        this.user = data;
         this.checkWishlist();
+      },
+      error: (err) => {
+        console.error('Failed to get user info', err);
       }
     });
   }
 
-  getIdurl() {
+  getIdurl(): void {
     this.route.paramMap.subscribe(params => {
       const encodedId = params.get('id');
       if (encodedId) {
         const id = Base64.decode(encodedId);
-        this.gameService.getGame(id).subscribe((data: Game) => {
-          this.game = data;
-          if (this.game?.developer) {
-            this.getDeveloper(this.game.developer);
-          }
-          if (this.user) {
+        this.gameService.getGame(id).subscribe({
+          next: (data: Game) => {
+            this.game = data;
+            if (this.game?.developer) {
+              this.getDeveloper(this.game.developer);
+            }
             this.checkWishlist();
+          },
+          error: (err) => {
+            console.error('Failed to get game', err);
           }
         });
       }
     });
   }
 
-  checkWishlist() {
+  checkWishlist(): void {
     if (this.user && this.game) {
       this.isInWishlist = this.user.wishLists.some(wl => wl.game?.id === this.game?.id);
     }
   }
-
-  addWishlist() {
+  
+  addWishlist(): void {
     if (this.user && this.game && !this.isInWishlist) {
       const wishlist: Wishlist = {
-        id: 0,  // Id temporaire
+        id: 0,  // Id temporaire, si besoin
         user: this.user,
         game: this.game,
         createdAt: new Date(),
         isLike: true
       };
-
+  
       this.wishlistService.addWishlist(wishlist).subscribe({
         next: (data: Wishlist) => {
           console.log('Wishlist added:', data);
           this.isInWishlist = true;
+          this.user?.wishLists.push(data); // Mise à jour locale
         },
         error: (err) => {
           console.error('Failed to add wishlist', err);
@@ -94,16 +100,20 @@ export class DetailGameComponent implements OnInit {
       });
     }
   }
-
-  removeWishlist() {
+  
+  removeWishlist(): void {
     if (this.user && this.game) {
       const wishlist = this.user.wishLists.find(wl => wl.game?.id === this.game?.id);
-
+  
       if (wishlist) {
         this.wishlistService.removeWishlist(wishlist).subscribe({
           next: () => {
             console.log('Wishlist removed');
             this.isInWishlist = false;
+            if (this.user) {
+            // Mise à jour locale
+            this.user.wishLists = this.user?.wishLists.filter(wl => wl.id !== wishlist.id);
+            }
           },
           error: (err) => {
             console.error('Failed to remove wishlist', err);
@@ -112,27 +122,33 @@ export class DetailGameComponent implements OnInit {
       } else {
         console.warn('Wishlist not found for this game');
       }
+    } else {
+      console.warn('User or game is undefined');
     }
   }
 
-  logout() {
+  logout(): void {
     this.auth.logout();
     this.router.navigate(['/']);
   }
 
-  goToProfile() {
+  goToProfile(): void {
     const encodedId = Base64.encode(String(this.user?.id));
     this.router.navigate(['/home/profile/' + encodedId]);
   }
 
-  getDeveloper(uri: string) {
-    this.http.get<Developer>('http://localhost:8000' + uri).subscribe((data: Developer) => {
-      this.developer = data;
+  getDeveloper(uri: string): void {
+    this.http.get<Developer>('http://localhost:8000' + uri).subscribe({
+      next: (data: Developer) => {
+        this.developer = data;
+      },
+      error: (err) => {
+        console.error('Failed to get developer', err);
+      }
     });
-    return this.developer;
   }
 
-  goToProfileDeveloper(id: number | undefined) {
+  goToProfileDeveloper(id: number | undefined): void {
     this.router.navigate(['/home/profile-studio/' + id]);
   }
 }

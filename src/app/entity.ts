@@ -45,7 +45,7 @@ export interface Game {
 }
 
 export interface Wishlist {
-  id: number;
+  id?: number;
   user: User;
   game: Game;
   createdAt: Date;
