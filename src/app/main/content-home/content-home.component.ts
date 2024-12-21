@@ -7,12 +7,13 @@ import { GameService } from '../../shared/game.service';
 import { Base64 } from 'js-base64';
 import iziToast from 'izitoast';
 import { FormsModule } from '@angular/forms';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 
 @Component({
   selector: 'app-content-home',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule, SearchBarComponent],
   templateUrl: './content-home.component.html',
   styleUrl: './content-home.component.css'
 })
@@ -35,6 +36,12 @@ export class ContentHomeComponent implements OnInit {
 
   constructor() { 
     
+  }
+
+  searchResults: any[] = [];
+
+  onSearchResults(results: any): void {
+    this.searchResults = results;
   }
 
 

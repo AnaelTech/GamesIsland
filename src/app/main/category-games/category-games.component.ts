@@ -6,11 +6,12 @@ import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { KeyValuePipe } from '@angular/common';
 import { Base64 } from 'js-base64';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-category-games',
   standalone: true,
-  imports: [KeyValuePipe],
+  imports: [KeyValuePipe,SearchBarComponent],
   templateUrl: './category-games.component.html',
   styleUrl: './category-games.component.css'
 })
@@ -37,6 +38,12 @@ export class CategoryGamesComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getGames();
+  }
+
+  searchResults: any[] = [];
+
+  onSearchResults(results: any): void {
+    this.searchResults = results;
   }
 
   getUser() {

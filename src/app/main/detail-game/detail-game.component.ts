@@ -9,11 +9,12 @@ import { NgClass } from '@angular/common';
 import { Base64 } from 'js-base64';
 import { DeveloperService } from '../../shared/developer.service';
 import { HttpClient } from '@angular/common/http';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-detail-game',
   standalone: true,
-  imports: [NgClass],
+  imports: [SearchBarComponent],
   templateUrl: './detail-game.component.html',
   styleUrls: ['./detail-game.component.css']  // Correction de 'styleUrl' en 'styleUrls'
 })
@@ -37,6 +38,12 @@ export class DetailGameComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getIdurl();
+  }
+
+  searchResults: any[] = [];
+
+  onSearchResults(results: any): void {
+    this.searchResults = results;
   }
 
   getUser(): void {
