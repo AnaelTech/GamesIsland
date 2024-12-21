@@ -17,7 +17,7 @@ Ce projet a été généré avec [Angular CLI](https://github.com/angular/angula
 Clonez le dépôt et installez les dépendances :
 
 ```bash
-git clone https://github.com/votre-utilisateur/GamesIsland.git
+git clone https://github.com/AnaelTech/GamesIsland.git
 cd GamesIsland-Front
 npm install
 ```
