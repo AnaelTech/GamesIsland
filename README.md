@@ -35,7 +35,7 @@ ng test
 ```
 
 ## Fonctionnalités
-Recherche de jeux par titre
-Affichage des résultats de recherche
-Navigation vers les détails des jeux
-Connexion utilisateur 
+-Recherche de jeux par titre
+-Affichage des résultats de recherche
+-Navigation vers les détails des jeux
+-Connexion utilisateur 
