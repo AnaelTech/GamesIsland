@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';  // Ajoutez CommonModule si nécessaire
+import { CommonModule } from '@angular/common';  // Ajout du CommonModule si nécessaire
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -15,7 +15,7 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, CommonModule, SearchBarComponent],  // Importez ici le composant autonome
+      imports: [HttpClientTestingModule, CommonModule, SearchBarComponent],  // Importation du composant autonome
       providers: [SearchService, { provide: Router, useClass: class { navigate = jasmine.createSpy("navigate"); } }]
     })
     .compileComponents();
@@ -28,12 +28,12 @@ describe('SearchBarComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeTruthy();  // Vérifie la création du composant
   });
 
   it('should have an input element', () => {
     const inputElement = fixture.debugElement.query(By.css('input'));
-    expect(inputElement).toBeTruthy();
+    expect(inputElement).toBeTruthy();  // Vérifie la présence de l'élément input
   });
 
   it('should call onSearch method when input value changes', () => {
@@ -42,7 +42,7 @@ describe('SearchBarComponent', () => {
     inputElement.value = 'test';
     inputElement.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    expect(component.onSearch).toHaveBeenCalled();
+    expect(component.onSearch).toHaveBeenCalled();  // Vérifie que la méthode onSearch a été appelée
   });
 
   it('should update searchResultsList when search is successful', () => {
@@ -59,11 +59,11 @@ describe('SearchBarComponent', () => {
     component.searchQuery = 'test';
     component.onSearch();
     fixture.detectChanges();
-    expect(component.searchResultsList).toEqual([]);
+    expect(component.searchResultsList).toEqual([]);  // Vérifie la gestion de l'erreur et la réinitialisation des résultats
   });
 
   it('should navigate to detail page on goToDetail', () => {
     component.goToDetail(1);
-    expect(router.navigate).toHaveBeenCalledWith(['/home/games/' + btoa('1')]);
+    expect(router.navigate).toHaveBeenCalledWith(['/home/games/' + btoa('1')]);  // Vérifie la navigation vers la page de détail
   });
 });
