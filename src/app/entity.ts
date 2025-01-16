@@ -7,7 +7,6 @@ export interface User {
     password: string;
     avatar: string;
     roles: string;
-    wishLists: Wishlist[];
 }
 
 export interface ApiListResponse<T> {
@@ -44,12 +43,14 @@ export interface Game {
   developer: string;
 }
 
-export interface Wishlist {
-  id?: number;
-  user: User;
-  game: Game;
-  createdAt: Date;
-  isLike: boolean;
+export interface WishList {
+  id: number;
+  user: {
+    id: number;
+    username: string;
+  };
+  games: Game;
+  createdAt: Date;  // ou Date si vous préférez manipuler en tant qu'objet Date
 }
 
 export interface Token {

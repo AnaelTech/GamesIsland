@@ -1,11 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Developer, Game, User, Wishlist } from '../../entity';
+import { Developer, Game, User, WishList } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
 import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { WishlistService } from '../../shared/wishlist.service';
-import { NgClass } from '@angular/common';
 import { Base64 } from 'js-base64';
 import { DeveloperService } from '../../shared/developer.service';
 import { HttpClient } from '@angular/common/http';
@@ -50,13 +49,13 @@ export class DetailGameComponent implements OnInit {
     this.auth.getUserInfo().subscribe({
       next: (data: User) => {
         this.user = data;
-        this.checkWishlist();
       },
       error: (err) => {
         console.error('Failed to get user info', err);
       }
     });
   }
+  
 
   getIdurl(): void {
     this.route.paramMap.subscribe(params => {
@@ -69,7 +68,6 @@ export class DetailGameComponent implements OnInit {
             if (this.game?.developer) {
               this.getDeveloper(this.game.developer);
             }
-            this.checkWishlist();
           },
           error: (err) => {
             console.error('Failed to get game', err);
@@ -79,30 +77,24 @@ export class DetailGameComponent implements OnInit {
     });
   }
 
-  checkWishlist(): void {
-    if (this.user && this.game) {
-      this.isInWishlist = this.user.wishLists.some(wl => wl.game?.id === this.game?.id);
-    }
-  }
   
   addWishlist(): void {
     if (this.user && this.game && !this.isInWishlist) {
-      const wishlist: Wishlist = {
+      const wishlist: WishList = {
         id: 0,  // Id temporaire, si besoin
         user: this.user,
-        game: this.game,
+        games: this.game,
         createdAt: new Date(),
-        isLike: true
       };
   
       this.wishlistService.addWishlist(wishlist).subscribe({
-        next: (data: Wishlist) => {
+        next: (data: WishList) => {
           console.log('Wishlist added:', data);
           this.isInWishlist = true;
-          this.user?.wishLists.push(data); // Mise à jour locale
         },
         error: (err) => {
           console.error('Failed to add wishlist', err);
+          console.log('Wishlist data being sent:', wishlist);
         }
       });
     }
@@ -110,16 +102,19 @@ export class DetailGameComponent implements OnInit {
   
   removeWishlist(): void {
     if (this.user && this.game) {
-      const wishlist = this.user.wishLists.find(wl => wl.game?.id === this.game?.id);
-  
+      const wishlist: WishList = {
+        id: 0,  // Id temporaire, si besoin
+        user: this.user,
+        games: this.game,
+        createdAt: new Date(),
+      };
+
       if (wishlist) {
         this.wishlistService.removeWishlist(wishlist).subscribe({
           next: () => {
             console.log('Wishlist removed');
             this.isInWishlist = false;
             if (this.user) {
-            // Mise à jour locale
-            this.user.wishLists = this.user?.wishLists.filter(wl => wl.id !== wishlist.id);
             }
           },
           error: (err) => {

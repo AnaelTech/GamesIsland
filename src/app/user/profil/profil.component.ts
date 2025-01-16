@@ -49,7 +49,6 @@ export class ProfilComponent implements OnInit {
       if (encodedId) {
         const id = Base64.decode(encodedId);
         this.userService.getUser(id).subscribe((data: User) => {
-          console.log(data.wishLists);
           this.user = data;
         });
       }
