@@ -15,6 +15,10 @@ export interface ApiListResponse<T> {
     'hydra:member': T[];
   }
 
+export interface ApiResponse<L> {
+    'hydra:member': L[];
+}
+
 export interface Developer {
   '@id': string;
   id?: number; 

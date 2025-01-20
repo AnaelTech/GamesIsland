@@ -1,37 +1,29 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Developer, Game, User, WishList } from '../../entity';
+import { Developer, Game, User, WishList, ApiResponse } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
-import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { WishlistService } from '../../shared/wishlist.service';
 import { Base64 } from 'js-base64';
-import { DeveloperService } from '../../shared/developer.service';
 import { HttpClient } from '@angular/common/http';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
-
-interface ApiResponse {
-  'hydra:member': WishList[];  // 'hydra:member' est un tableau de WishList
-}
 
 @Component({
   selector: 'app-detail-game',
   standalone: true,
   imports: [SearchBarComponent],
   templateUrl: './detail-game.component.html',
-  styleUrls: ['./detail-game.component.css']  // Correction de 'styleUrl' en 'styleUrls'
+  styleUrls: ['./detail-game.component.css']  
 })
 export class DetailGameComponent implements OnInit {
   private auth: AuthService = inject(AuthService);
-  private userService: UserService = inject(UserService);
   private gameService: GameService = inject(GameService);
   private wishlistService: WishlistService = inject(WishlistService);
-  private developerService: DeveloperService = inject(DeveloperService);
   private http: HttpClient = inject(HttpClient);
   private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
 
-  public developer?: Developer; // Utilisation de l'opérateur '?' pour les types optionnels
+  public developer?: Developer; 
   public user?: User;
   public game?: Game;
   public isInWishlist: boolean = false;
@@ -53,7 +45,7 @@ export class DetailGameComponent implements OnInit {
     this.auth.getUserInfo().subscribe({
       next: (data: User) => {
         this.user = data;
-        console.log('User info:', this.user);
+        // console.log('User info:', this.user);
       },
       error: (err) => {
         console.error('Failed to get user info', err);
@@ -73,6 +65,7 @@ export class DetailGameComponent implements OnInit {
             if (this.game?.developer) {
               this.getDeveloper(this.game.developer);
             }
+            this.checkIfGameIsInWishlist();
           },
           error: (err) => {
             console.error('Failed to get game', err);
@@ -82,29 +75,52 @@ export class DetailGameComponent implements OnInit {
     });
   }
 
+  checkIfGameIsInWishlist(): void {
+    if (this.user && this.game) {
+      this.wishlistService.getAllWishlists().subscribe({
+        next: (response: ApiResponse<WishList>) => {
+          const userWishlist = response['hydra:member'].find(
+            (w: WishList) => this.user && w.user === this.user['@id']
+          );
+  
+          if (userWishlist) {
+            this.isInWishlist = userWishlist.games.includes(this.game!['@id']);
+          } else {
+            this.isInWishlist = false;
+          }
+        },
+        error: (err) => {
+          console.error('Failed to fetch wishlists', err);
+          this.isInWishlist = false;
+        },
+      });
+    }
+  }
+  
+
   
   addGameToWishlist(): void {
     if (this.user && this.game) {
-      console.log('User and game are defined. Proceeding to fetch wishlists...');
+      //console.log('User and game are defined. Proceeding to fetch wishlists...');
       
       this.wishlistService.getAllWishlists().subscribe({
-        next: (response: ApiResponse) => {
-          console.log('Received wishlist data:', response);
+        next: (response: ApiResponse<WishList>) => {
+          //console.log('Received wishlist data:', response);
           
           const userWishlist = response['hydra:member'].find(
             (w: WishList) => this.user && w.user === this.user['@id']);  // Trouver la wishlist de l'utilisateur
           
           if (userWishlist) {
-            console.log('Wishlist found for user:', userWishlist);
+            //console.log('Wishlist found for user:', userWishlist);
             
             // Vérifier si le jeu est déjà dans la wishlist
             const gameAlreadyInWishlist = userWishlist.games.includes(this.game!['@id']);
-            console.log('Game already in wishlist:', gameAlreadyInWishlist);
+            //console.log('Game already in wishlist:', gameAlreadyInWishlist);
             
             if (gameAlreadyInWishlist) {
-              console.warn('This game is already in the wishlist');
+              //console.warn('This game is already in the wishlist');
               this.isInWishlist = true;
-              console.log(userWishlist.games);
+              //console.log(userWishlist.games);
               return;  // Ne pas ajouter le jeu s'il est déjà dans la wishlist
             } else {
               userWishlist.user = '/api/users/' + this.user!.id;
@@ -112,8 +128,8 @@ export class DetailGameComponent implements OnInit {
               // Maintenant on met à jour la wishlist avec son ID
               this.wishlistService.updateWishlist(userWishlist).subscribe({
                 next: () => {
-                  console.log('Game added to wishlist');
-                  console.log(userWishlist.games);
+                  //console.log('Game added to wishlist');
+                  //console.log(userWishlist.games);
                   this.isInWishlist = true;
                 },
                 error: (err) => {
@@ -130,7 +146,7 @@ export class DetailGameComponent implements OnInit {
             };
             this.wishlistService.addWishlist(wishlist).subscribe({
               next: (data) => {
-                console.log('Wishlist created:', data);
+                //console.log('Wishlist created:', data);
                 this.isInWishlist = true;
               },
               error: (err) => console.error('Failed to create wishlist', err)
@@ -148,21 +164,21 @@ export class DetailGameComponent implements OnInit {
   
   removeGameFromWishlist(): void {
     if (this.user && this.game) {
-      console.log('User and game are defined. Proceeding to fetch wishlists...');
+      //console.log('User and game are defined. Proceeding to fetch wishlists...');
       
       this.wishlistService.getAllWishlists().subscribe({
-        next: (response: ApiResponse) => {
-          console.log('Received wishlist data:', response);
+        next: (response: ApiResponse<WishList>) => {
+          //console.log('Received wishlist data:', response);
           
           const userWishlist = response['hydra:member'].find(
             (w: WishList) => this.user && w.user === this.user['@id']);  // Trouver la wishlist de l'utilisateur
           
           if (userWishlist) {
-            console.log('Wishlist found for user:', userWishlist);
+            //console.log('Wishlist found for user:', userWishlist);
             
             // Vérifier si le jeu est dans la wishlist
             const gameInWishlist = userWishlist.games.includes(this.game!['@id']);
-            console.log('Game in wishlist:', gameInWishlist);
+            //console.log('Game in wishlist:', gameInWishlist);
             
             if (gameInWishlist) {
               // Supprimer le jeu de la wishlist
@@ -172,8 +188,8 @@ export class DetailGameComponent implements OnInit {
               // Maintenant on met à jour la wishlist avec son ID
               this.wishlistService.updateWishlist(userWishlist).subscribe({
                 next: () => {
-                  console.log('Game removed from wishlist');
-                  console.log(userWishlist.games);
+                  //console.log('Game removed from wishlist');
+                  //console.log(userWishlist.games);
                   this.isInWishlist = false;  // On met à jour l'état pour indiquer que le jeu n'est plus dans la wishlist
                 },
                 error: (err) => {
@@ -182,7 +198,7 @@ export class DetailGameComponent implements OnInit {
               });
             } else {
               console.warn('This game is not in the wishlist');
-              console.log(userWishlist.games);
+             // console.log(userWishlist.games);
             }
           } else {
             console.warn('No wishlist found for user');
