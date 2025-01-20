@@ -10,6 +10,10 @@ import { DeveloperService } from '../../shared/developer.service';
 import { HttpClient } from '@angular/common/http';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
+interface ApiResponse {
+  'hydra:member': WishList[];  // 'hydra:member' est un tableau de WishList
+}
+
 @Component({
   selector: 'app-detail-game',
   standalone: true,
@@ -49,6 +53,7 @@ export class DetailGameComponent implements OnInit {
     this.auth.getUserInfo().subscribe({
       next: (data: User) => {
         this.user = data;
+        console.log('User info:', this.user);
       },
       error: (err) => {
         console.error('Failed to get user info', err);
@@ -78,56 +83,118 @@ export class DetailGameComponent implements OnInit {
   }
 
   
-  addWishlist(): void {
-    if (this.user && this.game && !this.isInWishlist) {
-      const wishlist: WishList = {
-        id: 0,  // Id temporaire, si besoin
-        user: this.user,
-        games: this.game,
-        createdAt: new Date(),
-      };
-  
-      this.wishlistService.addWishlist(wishlist).subscribe({
-        next: (data: WishList) => {
-          console.log('Wishlist added:', data);
-          this.isInWishlist = true;
-        },
-        error: (err) => {
-          console.error('Failed to add wishlist', err);
-          console.log('Wishlist data being sent:', wishlist);
-        }
-      });
-    }
-  }
-  
-  removeWishlist(): void {
+  addGameToWishlist(): void {
     if (this.user && this.game) {
-      const wishlist: WishList = {
-        id: 0,  // Id temporaire, si besoin
-        user: this.user,
-        games: this.game,
-        createdAt: new Date(),
-      };
-
-      if (wishlist) {
-        this.wishlistService.removeWishlist(wishlist).subscribe({
-          next: () => {
-            console.log('Wishlist removed');
-            this.isInWishlist = false;
-            if (this.user) {
+      console.log('User and game are defined. Proceeding to fetch wishlists...');
+      
+      this.wishlistService.getAllWishlists().subscribe({
+        next: (response: ApiResponse) => {
+          console.log('Received wishlist data:', response);
+          
+          const userWishlist = response['hydra:member'].find(
+            (w: WishList) => this.user && w.user === this.user['@id']);  // Trouver la wishlist de l'utilisateur
+          
+          if (userWishlist) {
+            console.log('Wishlist found for user:', userWishlist);
+            
+            // Vérifier si le jeu est déjà dans la wishlist
+            const gameAlreadyInWishlist = userWishlist.games.includes(this.game!['@id']);
+            console.log('Game already in wishlist:', gameAlreadyInWishlist);
+            
+            if (gameAlreadyInWishlist) {
+              console.warn('This game is already in the wishlist');
+              this.isInWishlist = true;
+              console.log(userWishlist.games);
+              return;  // Ne pas ajouter le jeu s'il est déjà dans la wishlist
+            } else {
+              userWishlist.user = '/api/users/' + this.user!.id;
+              userWishlist.games.push(this.game!['@id']);
+              // Maintenant on met à jour la wishlist avec son ID
+              this.wishlistService.updateWishlist(userWishlist).subscribe({
+                next: () => {
+                  console.log('Game added to wishlist');
+                  console.log(userWishlist.games);
+                  this.isInWishlist = true;
+                },
+                error: (err) => {
+                  console.error('Failed to update wishlist', err);
+                }
+              });
             }
-          },
-          error: (err) => {
-            console.error('Failed to remove wishlist', err);
+          } else {
+            // Créer une nouvelle wishlist si l'utilisateur n'en a pas
+            const wishlist: WishList = {
+              user: '/api/users/' + this.user!.id, 
+              games: [this.game!['@id']],
+              createdAt: new Date(),
+            };
+            this.wishlistService.addWishlist(wishlist).subscribe({
+              next: (data) => {
+                console.log('Wishlist created:', data);
+                this.isInWishlist = true;
+              },
+              error: (err) => console.error('Failed to create wishlist', err)
+            });
           }
-        });
-      } else {
-        console.warn('Wishlist not found for this game');
-      }
+        },
+        error: (err) => console.error('Failed to fetch wishlists', err)
+      });
     } else {
       console.warn('User or game is undefined');
     }
   }
+  
+  
+  
+  removeGameFromWishlist(): void {
+    if (this.user && this.game) {
+      console.log('User and game are defined. Proceeding to fetch wishlists...');
+      
+      this.wishlistService.getAllWishlists().subscribe({
+        next: (response: ApiResponse) => {
+          console.log('Received wishlist data:', response);
+          
+          const userWishlist = response['hydra:member'].find(
+            (w: WishList) => this.user && w.user === this.user['@id']);  // Trouver la wishlist de l'utilisateur
+          
+          if (userWishlist) {
+            console.log('Wishlist found for user:', userWishlist);
+            
+            // Vérifier si le jeu est dans la wishlist
+            const gameInWishlist = userWishlist.games.includes(this.game!['@id']);
+            console.log('Game in wishlist:', gameInWishlist);
+            
+            if (gameInWishlist) {
+              // Supprimer le jeu de la wishlist
+              userWishlist.games = userWishlist.games.filter((gameId) => gameId !== this.game!['@id']);
+              
+              userWishlist.user = '/api/users/' + this.user!.id;
+              // Maintenant on met à jour la wishlist avec son ID
+              this.wishlistService.updateWishlist(userWishlist).subscribe({
+                next: () => {
+                  console.log('Game removed from wishlist');
+                  console.log(userWishlist.games);
+                  this.isInWishlist = false;  // On met à jour l'état pour indiquer que le jeu n'est plus dans la wishlist
+                },
+                error: (err) => {
+                  console.error('Failed to update wishlist', err);
+                }
+              });
+            } else {
+              console.warn('This game is not in the wishlist');
+              console.log(userWishlist.games);
+            }
+          } else {
+            console.warn('No wishlist found for user');
+          }
+        },
+        error: (err) => console.error('Failed to fetch wishlists', err)
+      });
+    } else {
+      console.warn('User or game is undefined');
+    }
+  }
+  
 
   logout(): void {
     this.auth.logout();

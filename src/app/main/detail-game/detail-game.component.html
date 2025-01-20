@@ -83,7 +83,7 @@
                     <button class="bg-red-600 px-4 py-1 rounded-full text-white hover:bg-red-700">{{game.price}}
                         €</button>
                     @if(isInWishlist){
-                    <button (click)="removeWishlist()" class="bg-gray-100 p-2 rounded-md hover:bg-gray-200">
+                    <button (click)="removeGameFromWishlist()" class="bg-gray-100 p-2 rounded-md hover:bg-gray-200">
                         <span class="material-icons text-gray-800">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -94,7 +94,7 @@
                     </button>
                     }
                     @else {
-                    <button (click)="addWishlist()" class="bg-gray-100 p-2 rounded-md hover:bg-gray-200">
+                    <button (click)="addGameToWishlist()" class="bg-gray-100 p-2 rounded-md hover:bg-gray-200">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"

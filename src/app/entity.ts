@@ -44,13 +44,10 @@ export interface Game {
 }
 
 export interface WishList {
-  id: number;
-  user: {
-    id: number;
-    username: string;
-  };
-  games: Game;
-  createdAt: Date;  // ou Date si vous préférez manipuler en tant qu'objet Date
+  id?: number;
+  user: string ;
+  games: string[];
+  createdAt: Date;  
 }
 
 export interface Token {

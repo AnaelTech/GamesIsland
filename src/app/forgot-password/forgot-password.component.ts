@@ -7,7 +7,7 @@ import { FooterComponent } from "../footer/footer.component";
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [ReactiveFormsModule, FooterComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
