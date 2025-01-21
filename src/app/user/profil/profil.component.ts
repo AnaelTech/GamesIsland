@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Base64 } from 'js-base64';
 import { Game, User } from '../../entity';
@@ -6,6 +6,8 @@ import { UserService } from '../../shared/user.service';
 import { GameService } from '../../shared/game.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import iziToast from 'izitoast';
+import Swiper from 'swiper';
+import { Navigation } from 'swiper/modules';
 
 @Component({
   selector: 'app-profil',
@@ -16,11 +18,15 @@ import iziToast from 'izitoast';
 })
 
 
-export class ProfilComponent implements OnInit {
+export class ProfilComponent implements OnInit, AfterViewInit {
+
+  swiper: Swiper | undefined;
 
   public user: User | undefined;
 
   public games: Game[] = [];
+
+  public wishListGames: any[] = [];
 
   isEditing: boolean = false;
 
@@ -43,6 +49,32 @@ export class ProfilComponent implements OnInit {
     this.getIdUser();
   }
 
+  ngAfterViewInit(): void {
+    this.swiper = new Swiper('.swiper-container', {
+      modules: [Navigation],
+      navigation: {
+        nextEl: '#slider-button-right',
+        prevEl: '#slider-button-left',
+      },
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
+  }
+
   getIdUser(){
     this.route.paramMap.subscribe(params => {
       const encodedId = params.get('id');
@@ -50,11 +82,27 @@ export class ProfilComponent implements OnInit {
         const id = Base64.decode(encodedId);
         this.userService.getUser(id).subscribe((data: User) => {
           this.user = data;
+          this.loadWishlistGames();
+          console.log('User info:', this.user);
         });
       }
     });
   }
 
+  loadWishlistGames(){
+    const gameUrls = this.user?.wishList.games;
+    if (gameUrls) {
+      gameUrls.forEach((url: string) => {
+      this.gameService.getGameByUrl(url).subscribe((game: Game) => {
+        this.wishListGames.push(game);
+      });
+    }
+    )
+  }
+  if (this.swiper) {
+    this.swiper.update();
+  }
+}
 
   updatePseudo() {
     if (this.formUpdatePseudo.valid) {
@@ -160,6 +208,8 @@ export class ProfilComponent implements OnInit {
         ]
     });
 }
+
+
 
   enableEditing(): void {
     this.isEditing = !this.isEditing;

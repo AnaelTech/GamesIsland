@@ -9,6 +9,7 @@ import { ApiListResponse, Game } from '../entity';
 })
 export class GameService {
   private url = environment.apiUrl;
+  private urlSpec = environment.apiSpec;
   private http: HttpClient = inject(HttpClient);
 
   constructor() { }
@@ -23,5 +24,9 @@ export class GameService {
 
   getGame(id: string): Observable<Game> {
     return this.http.get<Game>(this.url + 'games/' + id);
+  }
+
+  getGameByUrl(uuid: string): Observable<Game> {
+    return this.http.get<Game>(this.urlSpec + uuid);
   }
 }

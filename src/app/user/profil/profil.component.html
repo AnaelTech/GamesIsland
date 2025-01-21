@@ -115,29 +115,19 @@
             <!--List des jeux possédés-->
         </div>
     </div>
-    <!-- <div class="mt-6">
+    <div class="mt-6">
         <h2>Wishlist</h2>
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4"> -->
-    <!--List des jeux présents dans la wishlist-->
-    <!-- @for(gameWish of user?.wishLists; track gameWish.id) {
-            <div class="bg-gray-800 p-4 rounded-lg">
+        <div class="Wishlist">
+            <!--List des jeux de la wishlist-->
+            @for(game of wishListGames; track game.id) {
+            <div class="bg-gray-800 p-4 rounded-lg mt-4">
                 <div class="flex items-center space-x-4">
-                    <img src="trophy.png" alt="Trophy" class="w-8 h-8">
+                    <img [src]="'http://localhost:8000' +game.coverImage" alt="{{ game.title }}" class="w-8 h-8">
                     <div>
-                        <h2 class="text-lg font-bold">TEST</h2>
-                        <span class="text-yellow-500">Challenger</span>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p>Lokal stats</p>
-                    <div class="flex justify-between mt-1">
-                        <span>42 - 21</span>
-                        <span>64%</span>
-                        <span>1.23 KDA</span>
+                        <h2 class="text-lg font-bold">{{ game.title }}</h2>
+                        <span class="text-yellow-500">{{ game.genre }}</span>
                     </div>
                 </div>
             </div>
             }
         </div>
-    </div> -->
-</div>

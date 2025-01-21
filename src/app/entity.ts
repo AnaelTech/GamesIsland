@@ -7,6 +7,7 @@ export interface User {
     password: string;
     avatar: string;
     roles: string;
+    wishList: WishList;
 }
 
 export interface ApiListResponse<T> {
