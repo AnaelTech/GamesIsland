@@ -7,6 +7,7 @@ import { WishlistService } from '../../shared/wishlist.service';
 import { Base64 } from 'js-base64';
 import { HttpClient } from '@angular/common/http';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import iziToast from 'izitoast';
 
 @Component({
   selector: 'app-detail-game',
@@ -131,6 +132,11 @@ export class DetailGameComponent implements OnInit {
                   //console.log('Game added to wishlist');
                   //console.log(userWishlist.games);
                   this.isInWishlist = true;
+                    iziToast.success({
+                    title: 'Success',
+                    message: 'Game added to wishlist',
+                    position: 'center'
+                    });
                 },
                 error: (err) => {
                   console.error('Failed to update wishlist', err);
@@ -191,6 +197,11 @@ export class DetailGameComponent implements OnInit {
                   //console.log('Game removed from wishlist');
                   //console.log(userWishlist.games);
                   this.isInWishlist = false;  // On met à jour l'état pour indiquer que le jeu n'est plus dans la wishlist
+                    iziToast.success({
+                    title: 'Success',
+                    message: 'Game removed from wishlist',
+                    position: 'center'
+                    });
                 },
                 error: (err) => {
                   console.error('Failed to update wishlist', err);
