@@ -34,4 +34,11 @@ export class UserService {
   deleteUser(userId: number | undefined) {
     return this.http.delete(this.url + 'users/' + userId);
   }
+
+  checkUsername(username: string): Observable<{ available: boolean }> {
+    return this.http.get<{ available: boolean }>(`${this.url}check-username`, {
+      params: { username }
+    });
+  }
+
 }

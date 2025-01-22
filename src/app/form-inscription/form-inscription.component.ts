@@ -1,7 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../shared/user.service';
+import { map, catchError, of } from 'rxjs';
+import { usernameValidator } from '../shared/validators/username.validator';
 
 @Component({
   selector: 'app-form-inscription',
@@ -16,7 +18,11 @@ private router: Router = inject(Router);
 private userService: UserService = inject(UserService);
 
 public formInscription: FormGroup = new FormGroup({
-  username: new FormControl('', [Validators.required]),
+  username: new FormControl('', {
+    validators: [Validators.required],
+    asyncValidators: [usernameValidator(this.userService)],
+    updateOn: 'blur'
+  }),
   email: new FormControl('', [Validators.required, Validators.email]),
   password: new FormControl('', [Validators.required]),
   passwordConfirmation: new FormControl('', [Validators.required])

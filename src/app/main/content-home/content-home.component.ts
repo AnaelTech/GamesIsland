@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../../shared/user.service';
 import { ApiListResponse, Game, User } from '../../entity';
 import { AuthService } from '../../shared/auth.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { GameService } from '../../shared/game.service';
 import { Base64 } from 'js-base64';
 import iziToast from 'izitoast';
@@ -21,7 +20,6 @@ export class ContentHomeComponent implements OnInit {
 
   private auth: AuthService = inject(AuthService);
 
-  private userService: UserService = inject(UserService);
 
   private gameService: GameService = inject(GameService);
 
