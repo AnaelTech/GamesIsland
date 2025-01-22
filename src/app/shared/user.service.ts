@@ -10,10 +10,8 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class UserService {
-  private auth = inject(AuthService);
   private url = environment.apiUrl;
   private http: HttpClient = inject(HttpClient);
-  private userInfos: AuthService = inject(AuthService);
   constructor() { }
 
   getUser(id: string): Observable<User> {
